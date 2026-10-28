@@ -9,3 +9,4 @@ export * from './CurrencyToggle';
 export * from './Navbar';
 export * from './Footer';
 export * from './IntakeWizardModal';
+export * from './motion';

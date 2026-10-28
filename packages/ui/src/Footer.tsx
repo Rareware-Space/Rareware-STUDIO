@@ -96,7 +96,7 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/5 font-mono text-[11px]">
             <div>© {new Date().getFullYear()} RAREWARE STUDIO. ALL RIGHTS RESERVED.</div>
             <div className="text-gray-400">
-              OPTIMIZED FOR POST-MAXWELL BSC 450ms FAST FINALITY
+              OPTIMIZED FOR POST-FERMI BSC 450ms BLOCK TIME &amp; opBNB SUB-SECOND EVM
             </div>
           </div>
         </div>

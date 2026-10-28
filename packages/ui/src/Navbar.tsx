@@ -55,8 +55,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="relative inline-flex rounded-full h-2 w-2 bg-teal"></span>
             </span>
             <span className="text-gray-300">
-              NETWORK: <span className="text-teal font-semibold">BSC MAINNET (56)</span> • FINALITY:{' '}
-              <span className="text-white">450ms</span> • opBNB:{' '}
+              NETWORK: <span className="text-teal font-semibold">BSC MAINNET (56)</span> • BLOCK TIME:{' '}
+              <span className="text-white">450ms (FERMI)</span> • opBNB:{' '}
               <span className="text-emerald font-semibold">LIVE (204)</span>
             </span>
           </div>

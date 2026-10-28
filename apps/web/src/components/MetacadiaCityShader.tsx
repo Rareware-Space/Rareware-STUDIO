@@ -2,13 +2,61 @@
 
 import React, { useEffect, useRef } from 'react';
 
+export type MetacadiaQuarter = 'arcade' | 'ai' | 'tournaments' | 'investor';
+
 interface MetacadiaCityShaderProps {
-  activeQuarter: 'arcade' | 'ai' | 'tournaments' | 'investor';
+  activeQuarter: MetacadiaQuarter;
   className?: string;
 }
 
+interface ColorRGB {
+  r: number;
+  g: number;
+  b: number;
+}
+
+interface QuarterTheme {
+  primaryRGB: ColorRGB;
+  secondaryRGB: ColorRGB;
+  primaryHex: string;
+  secondaryHex: string;
+}
+
+const QUARTER_THEMES: Record<MetacadiaQuarter, QuarterTheme> = {
+  arcade: {
+    primaryRGB: { r: 0, g: 245, b: 212 }, // #00F5D4 Teal
+    secondaryRGB: { r: 34, g: 211, b: 238 }, // #22D3EE Cyan
+    primaryHex: '#00F5D4',
+    secondaryHex: '#22D3EE',
+  },
+  ai: {
+    primaryRGB: { r: 139, g: 92, b: 246 }, // #8B5CF6 Violet
+    secondaryRGB: { r: 167, g: 139, b: 250 }, // #A78BFA Light Violet
+    primaryHex: '#8B5CF6',
+    secondaryHex: '#A78BFA',
+  },
+  tournaments: {
+    primaryRGB: { r: 245, g: 158, b: 11 }, // #F59E0B Amber
+    secondaryRGB: { r: 251, g: 191, b: 36 }, // #FBBF24 Gold
+    primaryHex: '#F59E0B',
+    secondaryHex: '#FBBF24',
+  },
+  investor: {
+    primaryRGB: { r: 59, g: 130, b: 246 }, // #3B82F6 Blue
+    secondaryRGB: { r: 96, g: 165, b: 250 }, // #60A5FA Light Blue
+    primaryHex: '#3B82F6',
+    secondaryHex: '#60A5FA',
+  },
+};
+
 export function MetacadiaCityShader({ activeQuarter, className = '' }: MetacadiaCityShaderProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const activeQuarterRef = useRef<MetacadiaQuarter>(activeQuarter);
+
+  // Keep quarter ref in sync without tearing down the canvas rendering context
+  useEffect(() => {
+    activeQuarterRef.current = activeQuarter;
+  }, [activeQuarter]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -24,15 +72,19 @@ export function MetacadiaCityShader({ activeQuarter, className = '' }: Metacadia
     let targetMouseX = 0;
     let targetMouseY = 0;
 
-    const quarterColors = {
-      arcade: { primary: '#00F5D4', secondary: '#22D3EE', rgb: '0, 245, 212' },
-      ai: { primary: '#8B5CF6', secondary: '#A78BFA', rgb: '139, 92, 246' },
-      tournaments: { primary: '#F59E0B', secondary: '#FBBF24', rgb: '245, 158, 11' },
-      investor: { primary: '#3B82F6', secondary: '#60A5FA', rgb: '59, 130, 246' },
-    };
+    // High-DPI / Retina devicePixelRatio scaling
+    const dpr = typeof window !== 'undefined' ? Math.max(1, Math.min(3, window.devicePixelRatio || 1)) : 1;
+    let cssWidth = 0;
+    let cssHeight = 0;
+
+    // Smooth RGB color lerping state
+    const initialTheme = QUARTER_THEMES[activeQuarter] || QUARTER_THEMES.arcade;
+    const currentPrimary: ColorRGB = { ...initialTheme.primaryRGB };
+    const currentSecondary: ColorRGB = { ...initialTheme.secondaryRGB };
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
       targetMouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
       targetMouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
     };
@@ -40,23 +92,61 @@ export function MetacadiaCityShader({ activeQuarter, className = '' }: Metacadia
     window.addEventListener('mousemove', handleMouseMove);
 
     const resize = () => {
-      if (!canvas.parentElement) return;
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight || 420;
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      cssWidth = parent.clientWidth || 800;
+      cssHeight = parent.clientHeight || 420;
+
+      canvas.width = Math.round(cssWidth * dpr);
+      canvas.height = Math.round(cssHeight * dpr);
+      canvas.style.width = `${cssWidth}px`;
+      canvas.style.height = `${cssHeight}px`;
     };
 
     resize();
     window.addEventListener('resize', resize);
+
+    const resizeObserver = typeof ResizeObserver !== 'undefined' && canvas.parentElement
+      ? new ResizeObserver(() => resize())
+      : null;
+    if (resizeObserver && canvas.parentElement) {
+      resizeObserver.observe(canvas.parentElement);
+    }
 
     const render = () => {
       time += 0.02;
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;
 
-      const w = canvas.width;
-      const h = canvas.height;
-      const theme = quarterColors[activeQuarter] || quarterColors.arcade;
+      // Color lerp calculation
+      const targetTheme = QUARTER_THEMES[activeQuarterRef.current] || QUARTER_THEMES.arcade;
+      const lerpSpeed = 0.06; // Buttery smooth ~300ms transition between quarters
 
+      currentPrimary.r += (targetTheme.primaryRGB.r - currentPrimary.r) * lerpSpeed;
+      currentPrimary.g += (targetTheme.primaryRGB.g - currentPrimary.g) * lerpSpeed;
+      currentPrimary.b += (targetTheme.primaryRGB.b - currentPrimary.b) * lerpSpeed;
+
+      currentSecondary.r += (targetTheme.secondaryRGB.r - currentSecondary.r) * lerpSpeed;
+      currentSecondary.g += (targetTheme.secondaryRGB.g - currentSecondary.g) * lerpSpeed;
+      currentSecondary.b += (targetTheme.secondaryRGB.b - currentSecondary.b) * lerpSpeed;
+
+      const prR = Math.round(currentPrimary.r);
+      const prG = Math.round(currentPrimary.g);
+      const prB = Math.round(currentPrimary.b);
+      const primaryRgb = `${prR}, ${prG}, ${prB}`;
+      const primaryCss = `rgb(${primaryRgb})`;
+
+      const secR = Math.round(currentSecondary.r);
+      const secG = Math.round(currentSecondary.g);
+      const secB = Math.round(currentSecondary.b);
+      const secondaryRgb = `${secR}, ${secG}, ${secB}`;
+
+      const w = cssWidth;
+      const h = cssHeight;
+
+      ctx.save();
+      // Apply Retina scaling transform
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
 
       // Deep atmospheric background
@@ -77,8 +167,8 @@ export function MetacadiaCityShader({ activeQuarter, className = '' }: Metacadia
         horizonY,
         w * 0.65
       );
-      horizonGlow.addColorStop(0, `rgba(${theme.rgb}, 0.35)`);
-      horizonGlow.addColorStop(0.5, `rgba(${theme.rgb}, 0.08)`);
+      horizonGlow.addColorStop(0, `rgba(${primaryRgb}, 0.35)`);
+      horizonGlow.addColorStop(0.5, `rgba(${primaryRgb}, 0.08)`);
       horizonGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = horizonGlow;
       ctx.fillRect(0, 0, w, h);
@@ -88,7 +178,7 @@ export function MetacadiaCityShader({ activeQuarter, className = '' }: Metacadia
       const vanishingX = w / 2 + mouseX * 60;
       const vanishingY = horizonY;
 
-      ctx.strokeStyle = `rgba(${theme.rgb}, 0.22)`;
+      ctx.strokeStyle = `rgba(${primaryRgb}, 0.22)`;
       ctx.lineWidth = 1;
 
       // Perspective Rays radiating from vanishing point
@@ -104,11 +194,11 @@ export function MetacadiaCityShader({ activeQuarter, className = '' }: Metacadia
       // Moving Horizontal Lines (depth simulation)
       const lineCount = 14;
       for (let i = 1; i <= lineCount; i++) {
-        const z = ((i + (time * 0.5) % 1) / lineCount);
+        const z = (i + ((time * 0.5) % 1)) / lineCount;
         const y = vanishingY + Math.pow(z, 2.2) * (h - vanishingY);
         const alpha = Math.min(1, z * 1.5) * 0.28;
 
-        ctx.strokeStyle = `rgba(${theme.rgb}, ${alpha})`;
+        ctx.strokeStyle = `rgba(${primaryRgb}, ${alpha})`;
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(w, y);
@@ -128,13 +218,13 @@ export function MetacadiaCityShader({ activeQuarter, className = '' }: Metacadia
 
         // Building Facet Gradient
         const bGrad = ctx.createLinearGradient(bx, by, bx + bw, by + bh);
-        bGrad.addColorStop(0, `rgba(${theme.rgb}, 0.18)`);
+        bGrad.addColorStop(0, `rgba(${primaryRgb}, 0.18)`);
         bGrad.addColorStop(1, 'rgba(9, 11, 16, 0.95)');
         ctx.fillStyle = bGrad;
         ctx.fillRect(bx, by, bw, bh);
 
-        // Building Edge Highlights
-        ctx.strokeStyle = `rgba(${theme.rgb}, 0.35)`;
+        // Building Edge Highlights (Secondary Lerped Tint)
+        ctx.strokeStyle = `rgba(${secondaryRgb}, 0.35)`;
         ctx.lineWidth = 1;
         ctx.strokeRect(bx, by, bw, bh);
 
@@ -143,12 +233,12 @@ export function MetacadiaCityShader({ activeQuarter, className = '' }: Metacadia
           ctx.beginPath();
           ctx.moveTo(bx + bw / 2, by);
           ctx.lineTo(bx + bw / 2, by - 16);
-          ctx.strokeStyle = theme.primary;
+          ctx.strokeStyle = primaryCss;
           ctx.stroke();
 
           // Pulsing Beacon Light
           const beaconAlpha = Math.abs(Math.sin(time * 3 + b));
-          ctx.fillStyle = `rgba(${theme.rgb}, ${beaconAlpha})`;
+          ctx.fillStyle = `rgba(${primaryRgb}, ${beaconAlpha})`;
           ctx.beginPath();
           ctx.arc(bx + bw / 2, by - 16, 2.5, 0, Math.PI * 2);
           ctx.fill();
@@ -160,17 +250,19 @@ export function MetacadiaCityShader({ activeQuarter, className = '' }: Metacadia
       ctx.save();
       const particleCount = 45;
       for (let p = 0; p < particleCount; p++) {
-        const px = ((Math.sin(p * 99 + time * 0.3) * 0.5 + 0.5) * w);
-        const py = ((Math.cos(p * 33 + time * 0.2) * 0.5 + 0.5) * h);
+        const px = (Math.sin(p * 99 + time * 0.3) * 0.5 + 0.5) * w;
+        const py = (Math.cos(p * 33 + time * 0.2) * 0.5 + 0.5) * h;
         const pSize = (p % 3) + 1;
         const pAlpha = (Math.sin(time + p) * 0.5 + 0.5) * 0.6;
 
-        ctx.fillStyle = `rgba(${theme.rgb}, ${pAlpha})`;
+        ctx.fillStyle = `rgba(${primaryRgb}, ${pAlpha})`;
         ctx.beginPath();
         ctx.arc(px, py, pSize, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.restore();
+
+      ctx.restore(); // Restore Retina transform matrix
 
       animId = requestAnimationFrame(render);
     };
@@ -181,8 +273,9 @@ export function MetacadiaCityShader({ activeQuarter, className = '' }: Metacadia
       cancelAnimationFrame(animId);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', resize);
+      if (resizeObserver) resizeObserver.disconnect();
     };
-  }, [activeQuarter]);
+  }, []);
 
   return (
     <div className={`relative w-full overflow-hidden rounded-2xl ${className}`}>

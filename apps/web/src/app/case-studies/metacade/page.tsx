@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Navbar,
   Footer,
@@ -9,11 +10,14 @@ import {
   IntakeWizardModal,
   CurrencyMode,
 } from '@rareware/ui';
-import { Token3DShaderCanvas } from '../../../components/Token3DShaderCanvas';
-import { MetacadiaCityShader } from '../../../components/MetacadiaCityShader';
-import { ScrollProgressBar } from '../../../components/ScrollProgressBar';
-import { ScrollReveal } from '../../../components/ScrollReveal';
-import { CounterTicker } from '../../../components/CounterTicker';
+import {
+  Token3DShaderCanvas,
+  MetacadiaCityShader,
+  ScrollProgressBar,
+  ScrollReveal,
+  CounterTicker,
+} from '@/components';
+import { METACADE_MEDIA } from '@/constants/media';
 
 export default function MetacadeCaseStudyPage() {
   const [currencyMode, setCurrencyMode] = useState<CurrencyMode>('USD');
@@ -174,13 +178,18 @@ export default function MetacadeCaseStudyPage() {
             <div className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-panel via-obsidian to-void overflow-hidden cyber-card">
               {/* Cinematic Widescreen Visual */}
               <div className="relative w-full h-80 sm:h-[480px] overflow-hidden group">
-                <img
-                  src="/media/metacadia-city-aerial.jpg"
-                  alt="City of Metacadia Aerial 3D Architecture"
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                <Image
+                  src={METACADE_MEDIA.cityAerial.src}
+                  alt={METACADE_MEDIA.cityAerial.alt}
+                  fill
+                  priority
+                  placeholder="blur"
+                  blurDataURL={METACADE_MEDIA.cityAerial.blurDataURL}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-void via-obsidian/40 to-transparent" />
-                <div className="absolute top-6 left-6 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-void/80 border border-teal/40 backdrop-blur-md text-teal font-mono text-xs">
+                <div className="absolute inset-0 bg-gradient-to-t from-void via-obsidian/40 to-transparent pointer-events-none" />
+                <div className="absolute top-6 left-6 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-void/80 border border-teal/40 backdrop-blur-md text-teal font-mono text-xs z-10 shadow-lg">
                   <span className="h-2 w-2 rounded-full bg-teal animate-ping" />
                   <span>NANO BANANA × VEO3 CINEMA RENDER</span>
                 </div>
@@ -402,14 +411,18 @@ export default function MetacadeCaseStudyPage() {
 
               {/* Right Column: Cinema Render + Staking Specs */}
               <div className="lg:col-span-6 space-y-6">
-                <div className="rounded-2xl overflow-hidden border border-white/10 relative group">
-                  <img
-                    src="/media/metacade-token-3d.jpg"
-                    alt="Metacade 3D Iridescent Token"
-                    className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
+                <div className="rounded-2xl overflow-hidden border border-white/10 relative group h-56 sm:h-64">
+                  <Image
+                    src={METACADE_MEDIA.token3D.src}
+                    alt={METACADE_MEDIA.token3D.alt}
+                    fill
+                    placeholder="blur"
+                    blurDataURL={METACADE_MEDIA.token3D.blurDataURL}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 text-xs font-mono text-teal">
+                  <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-4 left-4 text-xs font-mono text-teal z-10">
                     Veo3 Render: Faceted Iridescent Chromatic Reflection
                   </div>
                 </div>

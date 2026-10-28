@@ -44,13 +44,22 @@ export function Token3DShaderCanvas({ className = '', size = 320 }: Token3DShade
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll, { passive: true });
 
+    // High-DPI / Retina devicePixelRatio scaling for razor-sharp rendering on 4K/Retina displays
+    const dpr = typeof window !== 'undefined' ? Math.max(1, Math.min(3, window.devicePixelRatio || 1)) : 1;
+    canvas.width = Math.round(size * dpr);
+    canvas.height = Math.round(size * dpr);
+    canvas.style.width = `${size}px`;
+    canvas.style.height = `${size}px`;
+
     const render = () => {
-      const w = canvas.width;
-      const h = canvas.height;
+      const w = size;
+      const h = size;
       const cx = w / 2;
       const cy = h / 2;
       const radius = Math.min(w, h) * 0.38;
 
+      ctx.save();
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
 
       // Smooth lerp tilt
@@ -186,6 +195,8 @@ export function Token3DShaderCanvas({ className = '', size = 320 }: Token3DShade
       ctx.arc(cx, cy, radius * 1.05, 0, Math.PI * 2);
       ctx.fill();
 
+      ctx.restore(); // Restore Retina transform matrix
+
       animId = requestAnimationFrame(render);
     };
 
@@ -196,7 +207,7 @@ export function Token3DShaderCanvas({ className = '', size = 320 }: Token3DShade
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [size]);
 
   return (
     <div className={`relative flex items-center justify-center ${className}`}>
