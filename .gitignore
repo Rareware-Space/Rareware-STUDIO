@@ -25,7 +25,8 @@ build/
 **/keystore/**
 mnemonic.txt
 
-# Logs & OS
+# Internal agent workspaces
+.agents/
 *.log
 npm-debug.log*
 pnpm-debug.log*
