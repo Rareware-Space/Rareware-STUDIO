@@ -11,6 +11,9 @@ import {
   CurrencyMode,
   formatPrice,
 } from '@rareware/ui';
+import { HeroParticleCanvas } from '../components/HeroParticleCanvas';
+import { LiveProtocolTerminal } from '../components/LiveProtocolTerminal';
+import { ProjectCostEstimator } from '../components/ProjectCostEstimator';
 
 export default function StudioHomePage() {
   const [currencyMode, setCurrencyMode] = useState<CurrencyMode>('USD');
@@ -103,7 +106,13 @@ export default function StudioHomePage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
+      {/* Decorative Cyber HUD Corner Brackets */}
+      <div className="corner-tl" />
+      <div className="corner-tr" />
+      <div className="corner-bl" />
+      <div className="corner-br" />
+
       <Navbar
         currentProduct="studio"
         currencyMode={currencyMode}
@@ -113,9 +122,12 @@ export default function StudioHomePage() {
         onToggleWallet={() => setWalletConnected(!walletConnected)}
       />
 
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
-        {/* HERO SECTION */}
-        <section className="relative rounded-3xl border border-white/10 bg-gradient-to-b from-panel via-obsidian to-void p-8 sm:p-14 lg:p-16 overflow-hidden">
+      {/* HERO SECTION */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 w-full">
+        <section className="relative rounded-3xl border border-white/10 bg-gradient-to-b from-panel via-obsidian to-void p-8 sm:p-14 lg:p-16 overflow-hidden cyber-card">
+          {/* Real-Time Interactive Particle Network Background */}
+          <HeroParticleCanvas />
+
           {/* Radial Ambient Glow */}
           <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-teal/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] bg-violet/10 rounded-full blur-3xl pointer-events-none" />
@@ -158,6 +170,22 @@ export default function StudioHomePage() {
               </Link>
             </div>
 
+            {/* Network Credibility Badges */}
+            <div className="flex flex-wrap items-center gap-2.5 pt-4">
+              <div className="network-pill">
+                <span>◈</span> BSC NATIVE (CHAIN 56 • 450ms)
+              </div>
+              <div className="network-pill">
+                <span>⚡</span> opBNB SUB-SECOND L2 (CHAIN 204)
+              </div>
+              <div className="network-pill">
+                <span className="text-violet-400">Ξ</span> EVM COMPATIBLE
+              </div>
+              <div className="network-pill">
+                <span className="text-amber-400">🔒</span> GNOSIS SAFE TIMELOCK
+              </div>
+            </div>
+
             {/* Quick Live Telemetry Strip */}
             <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-white/10 text-xs font-mono">
               <div>
@@ -178,6 +206,56 @@ export default function StudioHomePage() {
               </div>
             </div>
           </div>
+        </section>
+      </div>
+
+      {/* INFINITE LIVE TICKER MARQUEE STRIP */}
+      <div className="ticker-strip my-10">
+        <div className="ticker-track">
+          <div className="ticker-item"><span className="t-symbol">BNB/USDT</span> $648.32 <span className="t-up">+3.45%</span> <span className="t-tag">450ms BLOCK</span></div>
+          <div className="ticker-item"><span className="t-symbol">BTC/USDT</span> $104,890.15 <span className="t-up">+2.84%</span></div>
+          <div className="ticker-item"><span className="t-symbol">ETH/USDT</span> $3,450.40 <span className="t-up">+1.92%</span></div>
+          <div className="ticker-item"><span className="t-symbol">opBNB GAS</span> 0.000008 BNB <span className="t-up">&lt;$0.001/tx</span></div>
+          <div className="ticker-item"><span className="t-symbol">RARE/USDT</span> $4.85 <span className="t-up">+14.2%</span></div>
+          <div className="ticker-item"><span className="t-symbol">PONDER RPC</span> 99.98% SYNCED <span className="t-up">16.4ms LATENCY</span></div>
+          <div className="ticker-item"><span className="t-symbol">FOUNDRY SUITE</span> 17/17 PASSED <span className="t-up">16,384 INVARIANTS</span></div>
+          <div className="ticker-item"><span className="t-symbol">SAFE MULTISIG</span> $48.2M SECURED <span className="t-tag">2-OF-3 POLICY</span></div>
+          {/* Duplicate loop */}
+          <div className="ticker-item"><span className="t-symbol">BNB/USDT</span> $648.32 <span className="t-up">+3.45%</span> <span className="t-tag">450ms BLOCK</span></div>
+          <div className="ticker-item"><span className="t-symbol">BTC/USDT</span> $104,890.15 <span className="t-up">+2.84%</span></div>
+          <div className="ticker-item"><span className="t-symbol">ETH/USDT</span> $3,450.40 <span className="t-up">+1.92%</span></div>
+          <div className="ticker-item"><span className="t-symbol">opBNB GAS</span> 0.000008 BNB <span className="t-up">&lt;$0.001/tx</span></div>
+          <div className="ticker-item"><span className="t-symbol">RARE/USDT</span> $4.85 <span className="t-up">+14.2%</span></div>
+          <div className="ticker-item"><span className="t-symbol">PONDER RPC</span> 99.98% SYNCED <span className="t-up">16.4ms LATENCY</span></div>
+          <div className="ticker-item"><span className="t-symbol">FOUNDRY SUITE</span> 17/17 PASSED <span className="t-up">16,384 INVARIANTS</span></div>
+          <div className="ticker-item"><span className="t-symbol">SAFE MULTISIG</span> $48.2M SECURED <span className="t-tag">2-OF-3 POLICY</span></div>
+        </div>
+      </div>
+
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-24 w-full">
+        {/* LIVE PROTOCOL TELEMETRY & TERMINAL CHART */}
+        <section className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <span className="font-mono text-xs text-teal tracking-wider uppercase">
+                00 // REAL-TIME NETWORK &amp; CONTRACT ACTIVITY
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
+                Live Protocol Telemetry Terminal
+              </h2>
+            </div>
+            <span className="font-mono text-xs text-emerald-400 flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+              CONNECTED: BSC MAINNET (56) &amp; opBNB (204)
+            </span>
+          </div>
+
+          <LiveProtocolTerminal />
+        </section>
+
+        {/* INTERACTIVE PROJECT ARCHITECTURE & GAS SAVINGS SANDBOX */}
+        <section className="space-y-4">
+          <ProjectCostEstimator onOpenIntake={() => setIntakeOpen(true)} />
         </section>
 
         {/* 4 CORE PILLARS */}
@@ -281,7 +359,7 @@ export default function StudioHomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* RareMint */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 specular-card flex flex-col justify-between space-y-4">
+            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between">
                   <span className="font-display text-xl font-bold text-white">RareMint</span>
@@ -300,7 +378,7 @@ export default function StudioHomePage() {
             </div>
 
             {/* RareToken */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 specular-card flex flex-col justify-between space-y-4">
+            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between">
                   <span className="font-display text-xl font-bold text-white">RareToken</span>
@@ -319,7 +397,7 @@ export default function StudioHomePage() {
             </div>
 
             {/* RareChars */}
-            <div className="rounded-2xl border border-violet/30 bg-panel p-6 specular-card flex flex-col justify-between space-y-4">
+            <div className="rounded-2xl border border-violet/30 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between">
                   <span className="font-display text-xl font-bold text-white">RareChars</span>
@@ -338,7 +416,7 @@ export default function StudioHomePage() {
             </div>
 
             {/* RarePay */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 specular-card flex flex-col justify-between space-y-4">
+            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between">
                   <span className="font-display text-xl font-bold text-white">RarePay</span>
@@ -357,7 +435,7 @@ export default function StudioHomePage() {
             </div>
 
             {/* RareAgent */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 specular-card flex flex-col justify-between space-y-4">
+            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between">
                   <span className="font-display text-xl font-bold text-white">RareAgent</span>
@@ -376,7 +454,7 @@ export default function StudioHomePage() {
             </div>
 
             {/* RareDash */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 specular-card flex flex-col justify-between space-y-4">
+            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
               <div>
                 <div className="flex items-center justify-between">
                   <span className="font-display text-xl font-bold text-white">RareDash</span>
@@ -421,7 +499,7 @@ export default function StudioHomePage() {
               return (
                 <div
                   key={item.title}
-                  className="rounded-2xl border border-white/10 bg-panel p-6 flex flex-col justify-between space-y-6 specular-card"
+                  className="rounded-2xl border border-white/10 bg-panel p-6 flex flex-col justify-between space-y-6 cyber-card"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">

@@ -90,11 +90,157 @@ body {
 .specular-card {
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
 .specular-card:hover {
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
+}
+
+/* Feature card cyber with top expanding gradient line */
+.cyber-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(17, 19, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.35s ease;
+}
+
+.cyber-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00F5D4, #8B5CF6, #F59E0B);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+
+.cyber-card:hover::before {
+  transform: scaleX(1);
+}
+
+.cyber-card:hover {
+  border-color: rgba(0, 245, 212, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px -10px rgba(0, 245, 212, 0.15);
+}
+
+/* Corner Brackets (Decorative Cyber HUD) */
+.corner-tl, .corner-tr, .corner-bl, .corner-br {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+.corner-tl { top: 16px; left: 16px; border-top: 1.5px solid #00F5D4; border-left: 1.5px solid #00F5D4; }
+.corner-tr { top: 16px; right: 16px; border-top: 1.5px solid #8B5CF6; border-right: 1.5px solid #8B5CF6; }
+.corner-bl { bottom: 16px; left: 16px; border-bottom: 1.5px solid #00F5D4; border-left: 1.5px solid #00F5D4; }
+.corner-br { bottom: 16px; right: 16px; border-bottom: 1.5px solid #F59E0B; border-right: 1.5px solid #F59E0B; }
+
+@media (max-width: 768px) {
+  .corner-tl, .corner-tr, .corner-bl, .corner-br { display: none; }
+}
+
+/* Live Ticker Strip */
+.ticker-strip {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(11, 12, 16, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 0.85rem 0;
+  position: relative;
+}
+
+.ticker-strip:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 2.75rem;
+  animation: tickerScroll 35s linear infinite;
+  width: max-content;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: rgba(243, 244, 246, 0.7);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ticker-item .t-symbol {
+  color: #00F5D4;
+  font-weight: 700;
+}
+
+.ticker-item .t-up {
+  color: #10B981;
+  font-weight: 600;
+}
+
+.ticker-item .t-down {
+  color: #EF4444;
+  font-weight: 600;
+}
+
+.ticker-item .t-tag {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  color: #9CA3AF;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Network Pills */
+.network-pill {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(5, 5, 7, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(243, 244, 246, 0.85);
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+}
+
+.network-pill:hover {
+  border-color: rgba(0, 245, 212, 0.4);
+  background: rgba(0, 245, 212, 0.06);
+  transform: translateY(-1px);
+}
+
+.network-pill span {
+  color: #00F5D4;
 }
 
 /* Custom Scrollbar */
