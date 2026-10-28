@@ -2,35 +2,85 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Option 4 Typography: Unbounded (Display), DM Sans (Body/UI), Space Mono (Technical/Telemetry) */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Unbounded:wght@600;700;800;900&display=swap');
+/* Wonderland x Avark Design System: Syne + Space Grotesk (Display), Manrope (Body/UI), JetBrains Mono (Technical/Telemetry) */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap');
 
 :root {
-  --color-void: #050507;
-  --color-obsidian: #0B0C10;
-  --color-panel: #11131A;
+  --color-void: #050608;
+  --color-obsidian: #090B10;
+  --color-panel: #0E121A;
   --color-teal: #00F5D4;
 }
 
 body {
-  background-color: #050507;
-  color: #F3F4F6;
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #050608;
+  color: #F4F4F5;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
+  letter-spacing: -0.01em;
 }
 
 .font-display {
-  font-family: 'Unbounded', sans-serif;
-  letter-spacing: -0.03em;
-  line-height: 1.06;
+  font-family: 'Syne', 'Space Grotesk', sans-serif;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
 }
 
 .font-sans {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .font-mono {
-  font-family: 'Space Mono', monospace;
+  font-family: 'JetBrains Mono', 'Space Mono', monospace;
+  letter-spacing: -0.02em;
+}
+
+/* Wonderland Iridescent Text Accent */
+.gradient-text-wonderland {
+  background: linear-gradient(135deg, #00F5D4 0%, #22D3EE 30%, #8B5CF6 70%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Avark Service Pill Badge */
+.service-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #D4D4D8;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-pill:hover {
+  background: rgba(0, 245, 212, 0.08);
+  border-color: rgba(0, 245, 212, 0.3);
+  color: #00F5D4;
+}
+
+/* Watermark Number on Ethos / Feature Cards */
+.watermark-number {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 4rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.03);
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.cyber-card:hover .watermark-number {
+  color: rgba(0, 245, 212, 0.08);
 }
 
 /* Background grid */

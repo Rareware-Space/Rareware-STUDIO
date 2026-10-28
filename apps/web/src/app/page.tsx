@@ -21,8 +21,119 @@ export default function StudioHomePage() {
   const [walletConnected, setWalletConnected] = useState(false);
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
 
+  const ethosPillars = [
+    {
+      num: '01',
+      code: 'ETHOS 01',
+      title: 'THE FLOOR IS EXCELLENCE',
+      badge: 'VERIFICATION',
+      badgeVariant: 'teal' as const,
+      tagline: 'Security Over Speed • Proof Over Hype',
+      desc: 'We do not ship code we would not stake our own treasury on. Every state-changing function undergoes test-first Foundry validation, 1,000-run property fuzzing, stateful invariant verification, and Slither/Aderyn static analysis before touching testnet.',
+      pills: ['Foundry 1k Fuzz', 'Stateful Invariants', 'Slither Static', 'Safe Multisig'],
+      metric: '16,384 Invariant Runs • 0 Criticals',
+    },
+    {
+      num: '02',
+      code: 'ETHOS 02',
+      title: 'ZERO-KEY CRYPTOGRAPHIC SAFETY',
+      badge: 'AI ARCHITECTURE',
+      badgeVariant: 'violet' as const,
+      tagline: 'AI Proposes • Smart Contracts Verify',
+      desc: 'No AI agent ever touches client private keys or broadcasts unverified transactions. Persistent game NPCs and autonomous agents propose actions to an API which cryptographically signs typed EIP-712 intents verified on-chain by RareCharsVerifier.sol.',
+      pills: ['EIP-712 Intent', 'Zero-Key Security', 'ReadyPI API', 'pgvector RAG'],
+      metric: 'EIP-712 Typed Data • Daily Quota Caps',
+    },
+    {
+      num: '03',
+      code: 'ETHOS 03',
+      title: 'POST-MAXWELL CHAIN NATIVE',
+      badge: 'BLOCKCHAIN NATIVE',
+      badgeVariant: 'teal' as const,
+      tagline: '450ms Fast Finality • Zero Block Drift',
+      desc: 'Engineered specifically for post-Maxwell BSC 450ms block times and opBNB sub-second transactions. Never uses block.number for time-dependent escrow or vesting math. Enforces dynamic 18-decimal token normalization safe for BSC USDT and USDC.',
+      pills: ['BSC 450ms', 'opBNB Sub-Second', 'Timestamp Invariants', '18-Dec Safety'],
+      metric: 'Dynamic IERC20Metadata.decimals()',
+    },
+    {
+      num: '04',
+      code: 'ETHOS 04',
+      title: 'HARDWARE-ACCELERATED MOTION',
+      badge: 'CINEMATIC CRAFT',
+      badgeVariant: 'amber' as const,
+      tagline: 'High Craft • Defensible Moat',
+      desc: 'Most smart contract development shops deliver ugly, boilerplate templates. Motion is our moat: 60fps GSAP timelines, GPU-accelerated canvas particles, Framer Motion transitions, and interactive Web3 terminals that elevate brand status to luxury tiers.',
+      pills: ['60fps GSAP', 'Particle Canvas', 'Tilt Kinetics', 'Sub-second UX'],
+      metric: '60fps GPU Rendered • 16.4ms RPC Sync',
+    },
+  ];
+
+  const products = [
+    {
+      num: '01',
+      title: 'RareMint',
+      badge: 'OPEN-SOURCE CORE',
+      badgeVariant: 'teal' as const,
+      contract: 'RareMint.sol',
+      href: '/raremint',
+      desc: 'Zero-gas-war NFT collection kit with Merkle allowlists, delayed reveal choreography, and EIP-2981 Safe royalties.',
+      tags: ['ERC-721A', 'Merkle Proofs', 'Commit-Reveal', 'Safe Royalties'],
+    },
+    {
+      num: '02',
+      title: 'RareToken',
+      badge: 'OPEN-SOURCE CORE',
+      badgeVariant: 'amber' as const,
+      contract: 'RareToken.sol + Vesting',
+      href: '/raretoken',
+      desc: 'Fixed-supply ERC-20 with timestamp-based cliff/linear vesting and Synthetix-style APY staking safe from BSC block drift.',
+      tags: ['ERC-20', 'Cliff Vesting', 'Synthetix APY', 'No Block Drift'],
+    },
+    {
+      num: '03',
+      title: 'RareChars',
+      badge: 'FLAGSHIP API + SDK',
+      badgeVariant: 'violet' as const,
+      contract: 'RareCharsVerifier.sol',
+      href: '/rarechars',
+      desc: 'Persistent AI NPCs for Web3 games with pgvector RAG memory and cryptographically verified on-chain action intents on opBNB.',
+      tags: ['ReadyPI Gateway', 'pgvector RAG', 'EIP-712 Intent', 'Game NPC API'],
+    },
+    {
+      num: '04',
+      title: 'RarePay',
+      badge: 'NON-CUSTODIAL SAAS',
+      badgeVariant: 'blue' as const,
+      contract: 'RarePayRouter.sol',
+      href: '/rarepay',
+      desc: 'Crypto checkout on BSC & opBNB (USDT/USDC/BNB) with on-chain 18-decimal validation and signed HMAC webhooks.',
+      tags: ['18-Dec Stablecoin', 'HMAC Webhooks', 'Non-Custodial', 'BSC & opBNB'],
+    },
+    {
+      num: '05',
+      title: 'RareAgent',
+      badge: 'ERC-4337 ACCOUNT',
+      badgeVariant: 'orange' as const,
+      contract: 'Session Key Module',
+      href: '/rareagent',
+      desc: 'Autonomous AI agent smart accounts with scoped session keys, contract allowlists, daily spend caps, and kill-switches.',
+      tags: ['ERC-4337', 'Session Keys', 'Daily Caps', 'Kill-Switch'],
+    },
+    {
+      num: '06',
+      title: 'RareDash',
+      badge: 'ANALYTICS SAAS',
+      badgeVariant: 'lime' as const,
+      contract: 'Ponder v0.7 Indexer',
+      href: '/raredash',
+      desc: 'Sub-second Ponder-indexed contract telemetry, whale alert webhooks, and live on-chain holder intelligence.',
+      tags: ['Ponder v0.7', 'Sub-Second Sync', 'Whale Alerts', 'Holder Intel'],
+    },
+  ];
+
   const services = [
     {
+      index: '01',
       title: 'Token Launch Kit',
       scope: 'ERC-20, Cliff/Linear Vesting, Timestamp Staking, Tests & Safe Handover',
       timeline: '1–2 Weeks',
@@ -30,8 +141,10 @@ export default function StudioHomePage() {
       rangeUsd: '$2,000 – $6,000',
       badge: 'TOKENOMICS',
       accent: 'amber',
+      tags: ['Solidity 0.8.28', 'Timestamp Vesting', 'Synthetix APY', 'Foundry 1k Fuzz', 'Safe Multisig'],
     },
     {
+      index: '02',
       title: 'NFT Collection + Mint Site',
       scope: 'ERC-721/1155, Merkle Allowlist, Commit-Reveal, Cinematic GSAP Mint Terminal',
       timeline: '1–3 Weeks',
@@ -39,8 +152,10 @@ export default function StudioHomePage() {
       rangeUsd: '$1,500 – $5,000',
       badge: 'CINEMA MINT',
       accent: 'teal',
+      tags: ['ERC-721A', 'Merkle Proofs', 'GSAP Timeline', 'EIP-2981 Royalties', 'opBNB Cheap Gas'],
     },
     {
+      index: '03',
       title: 'AI x Chain Integration',
       scope: 'Persistent AI Agent or NPC with EIP-712 Signed On-Chain Actions & RAG Memory',
       timeline: '3–6 Weeks',
@@ -48,8 +163,10 @@ export default function StudioHomePage() {
       rangeUsd: '$5,000 – $15,000',
       badge: 'AI INFRA',
       accent: 'violet',
+      tags: ['ReadyPI Gateway', 'pgvector RAG', 'EIP-712 Intent', 'Zero-Key Security', 'opBNB L2'],
     },
     {
+      index: '04',
       title: 'dApp / Marketplace Suite',
       scope: 'Custom Solidity Contracts, Ponder Indexer, Sub-Second Next.js Frontend',
       timeline: '4–8 Weeks',
@@ -57,8 +174,10 @@ export default function StudioHomePage() {
       rangeUsd: '$8,000 – $25,000',
       badge: 'FULL STACK',
       accent: 'blue',
+      tags: ['Next.js 15 App Router', 'Ponder v0.7', 'Wagmi / Viem', 'Tailwind CSS', 'Sub-second RPC'],
     },
     {
+      index: '05',
       title: 'Pre-Audit Hardening',
       scope: 'Slither/Aderyn Static Analysis, 1,000-Run Fuzz + Invariant Verification & Fixes',
       timeline: '1 Week',
@@ -66,8 +185,10 @@ export default function StudioHomePage() {
       rangeUsd: '$1,000 – $3,000',
       badge: 'SECURITY',
       accent: 'orange',
+      tags: ['Slither Static', 'Aderyn AST', 'Foundry Invariants', 'Decimals Safety', 'Remediation PRs'],
     },
     {
+      index: '06',
       title: 'Studio Engineering Retainer',
       scope: 'Dedicated Monorepo Upgrades, Ponder Node Monitoring & Priority Advisory',
       timeline: 'Monthly',
@@ -75,6 +196,7 @@ export default function StudioHomePage() {
       rangeUsd: '$500 – $1,500 / mo',
       badge: 'RETAINER',
       accent: 'lime',
+      tags: ['SLA Monorepo Support', 'Ponder Node Sync', 'Gas Optimizations', 'Private Telegram / Slack'],
     },
   ];
 
@@ -106,7 +228,7 @@ export default function StudioHomePage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col relative">
+    <div className="min-h-screen flex flex-col relative selection:bg-teal selection:text-void">
       {/* Decorative Cyber HUD Corner Brackets */}
       <div className="corner-tl" />
       <div className="corner-tr" />
@@ -122,34 +244,41 @@ export default function StudioHomePage() {
         onToggleWallet={() => setWalletConnected(!walletConnected)}
       />
 
-      {/* HERO SECTION */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 w-full">
+      {/* HERO SECTION - WONDERLAND X AVARK EDITORIAL LUXURY */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 w-full">
         <section className="relative rounded-3xl border border-white/10 bg-gradient-to-b from-panel via-obsidian to-void p-8 sm:p-14 lg:p-16 overflow-hidden cyber-card">
           {/* Real-Time Interactive Particle Network Background */}
           <HeroParticleCanvas />
 
           {/* Radial Ambient Glow */}
-          <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-teal/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] bg-violet/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -top-32 -right-32 w-[550px] h-[550px] bg-teal/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-32 -left-32 w-[450px] h-[450px] bg-violet/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-4xl space-y-6">
+          <div className="relative z-10 max-w-4xl space-y-7">
+            {/* Wonderland-Style Eyebrow Tag with Pulse */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-teal/10 border border-teal/30 text-teal font-mono text-xs">
               <span className="h-2 w-2 rounded-full bg-teal animate-pulse" />
-              <span>LUMINA MONOLITH PRO MAX</span>
-              <span>•</span>
+              <span className="font-semibold tracking-wider">00 // ARCHITECTURAL ETHOS &amp; PROTOCOL SUITE</span>
+              <span className="text-gray-500">•</span>
               <span className="text-gray-300">BSC (56) &amp; opBNB (204) NATIVE</span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.08]">
+            {/* Monumental Editorial Headline with Italic Accent Contrast */}
+            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.06]">
               WHERE CINEMATIC MOTION MEETS{' '}
-              <span className="text-teal">AUDITED WEB3 INFRASTRUCTURE</span>
+              <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-teal via-cyan-300 to-violet-400">
+                AUDITED
+              </span>{' '}
+              WEB3 INFRASTRUCTURE.
             </h1>
 
-            <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
+            {/* Manrope Geometric Body Copy */}
+            <p className="text-gray-300 text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-3xl">
               Rareware Studio ships production-grade blockchain products, persistent AI game characters, and cinema-grade Web3 frontends. Built with an AI-assisted, security-first pipeline—every state-changing function ships with fuzzing, invariants, and Safe multisig handovers.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-4">
+            {/* High-Craft Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <button
                 onClick={() => setIntakeOpen(true)}
                 className="px-7 py-3.5 rounded-xl bg-teal text-void font-display font-bold text-sm hover:opacity-95 transition glow-teal shadow-xl shadow-teal/20"
@@ -171,7 +300,7 @@ export default function StudioHomePage() {
             </div>
 
             {/* Network Credibility Badges */}
-            <div className="flex flex-wrap items-center gap-2.5 pt-4">
+            <div className="flex flex-wrap items-center gap-2.5 pt-2">
               <div className="network-pill">
                 <span>◈</span> BSC NATIVE (CHAIN 56 • 450ms)
               </div>
@@ -187,7 +316,7 @@ export default function StudioHomePage() {
             </div>
 
             {/* Quick Live Telemetry Strip */}
-            <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-white/10 text-xs font-mono">
+            <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-white/10 text-xs font-mono">
               <div>
                 <span className="text-gray-500 block">BSC BLOCK TIME</span>
                 <span className="text-teal font-bold text-sm">450ms Fast Finality</span>
@@ -258,98 +387,84 @@ export default function StudioHomePage() {
           <ProjectCostEstimator onOpenIntake={() => setIntakeOpen(true)} />
         </section>
 
-        {/* 4 CORE PILLARS */}
+        {/* THE ARCHITECTURAL ETHOS - WONDERLAND STYLE MANIFESTO */}
         <section className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
             <div>
               <span className="font-mono text-xs text-teal tracking-wider uppercase">
-                01 // Architectural Foundations
+                01 // THE ARCHITECTURAL ETHOS
               </span>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-                The Four Studio Pillars
+                Four Uncompromising Principles
               </h2>
             </div>
-            <span className="font-mono text-xs text-gray-500">
-              Security Over Speed • Craft Over Clutter
+            <span className="font-mono text-xs text-gray-400">
+              Security Over Speed • Proof Over Hype
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <TiltCard glowColor="rgba(0, 245, 212, 0.2)" className="p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <Badge variant="teal">PILLAR 01</Badge>
-                  <span className="font-mono text-xs text-gray-500">BSC 56 / opBNB</span>
-                </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2">CHAIN-FIRST</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Engineered specifically for post-Maxwell 450ms BSC block times and opBNB sub-second transactions. Never uses block.number for time math; guarantees 18-decimal dynamic token normalization.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/5 font-mono text-[11px] text-teal">
-                ✓ Dynamic IERC20Metadata.decimals()
-              </div>
-            </TiltCard>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {ethosPillars.map((item) => (
+              <TiltCard
+                key={item.num}
+                glowColor={item.num === '02' ? 'rgba(139, 92, 246, 0.2)' : item.num === '04' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(0, 245, 212, 0.2)'}
+                className="h-full"
+              >
+                <div className="relative rounded-2xl border border-white/10 bg-panel/90 p-8 cyber-card overflow-hidden flex flex-col justify-between h-full group hover:border-teal/40 transition-all duration-300">
+                  {/* Subtle Watermark Number */}
+                  <div className="watermark-number select-none">
+                    {item.num}
+                  </div>
 
-            <TiltCard glowColor="rgba(139, 92, 246, 0.2)" className="p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <Badge variant="violet">PILLAR 02</Badge>
-                  <span className="font-mono text-xs text-gray-500">EIP-712</span>
-                </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2">AI-NATIVE</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Persistent AI game NPCs (RareChars) and guarded autonomous agents (RareAgent). Zero AI keys: models propose actions, and smart contracts cryptographically verify typed intents.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/5 font-mono text-[11px] text-violet">
-                ✓ Supabase pgvector + EIP-712 Verifier
-              </div>
-            </TiltCard>
+                  <div className="space-y-4 relative z-10">
+                    <div className="flex items-center justify-between">
+                      <div className="font-mono text-xs text-teal font-semibold tracking-wider">
+                        {item.code} //
+                      </div>
+                      <Badge variant={item.badgeVariant}>{item.badge}</Badge>
+                    </div>
 
-            <TiltCard glowColor="rgba(0, 245, 212, 0.2)" className="p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <Badge variant="teal">PILLAR 03</Badge>
-                  <span className="font-mono text-xs text-gray-500">Next.js + GSAP</span>
-                </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2">CINEMATIC FRONTENDS</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Most smart contract shops deliver ugly, templated UIs. Motion is our defensible moat: high-craft Next.js App Router, GSAP timelines, Framer Motion, and hardware-accelerated 3D viewports.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/5 font-mono text-[11px] text-teal">
-                ✓ 60fps Micro-interactions &amp; Tilt
-              </div>
-            </TiltCard>
+                    <h3 className="font-display text-2xl font-bold text-white tracking-tight">
+                      {item.title}
+                    </h3>
 
-            <TiltCard glowColor="rgba(245, 158, 11, 0.2)" className="p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <Badge variant="amber">PILLAR 04</Badge>
-                  <span className="font-mono text-xs text-gray-500">Foundry Suite</span>
+                    <p className="text-xs font-mono text-gray-400 uppercase tracking-wider">
+                      {item.tagline}
+                    </p>
+
+                    <p className="text-sm text-gray-300 leading-relaxed font-sans">
+                      {item.desc}
+                    </p>
+
+                    {/* Avark Style Capability Pills */}
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {item.pills.map((pill) => (
+                        <span key={pill} className="service-pill">
+                          <span className="text-teal">#</span> {pill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-8 pt-4 border-t border-white/5 font-mono text-xs text-teal flex items-center justify-between relative z-10">
+                    <span>✓ {item.metric}</span>
+                    <span className="text-gray-500 group-hover:text-teal transition">→</span>
+                  </div>
                 </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2">SECURITY-FIRST</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Every state-changing function undergoes test-first Foundry validation, 1,000-run property fuzzing, stateful invariant testing, and Slither/Aderyn static analysis before testnet deployment.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/5 font-mono text-[11px] text-amber">
-                ✓ 256 Invariant Runs • Safe Handover
-              </div>
-            </TiltCard>
+              </TiltCard>
+            ))}
           </div>
         </section>
 
-        {/* 6 STANDALONE PRODUCT PORTALS */}
+        {/* 6 STANDALONE PRODUCT PORTALS - AVARK STYLE */}
         <section className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
             <div>
               <span className="font-mono text-xs text-teal tracking-wider uppercase">
-                02 // Productized Developer Kits &amp; SaaS
+                02 // PRODUCTIZED SUITE &amp; SAAS
               </span>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-                Six Standalone Products
+                Six Flagship Standalone Products
               </h2>
             </div>
             <span className="font-mono text-xs text-gray-400">
@@ -358,128 +473,61 @@ export default function StudioHomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* RareMint */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareMint</span>
-                  <Badge variant="teal">OPEN-SOURCE CORE</Badge>
+            {products.map((prod) => (
+              <div
+                key={prod.title}
+                className="relative rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4 hover:border-teal/40 transition-all duration-300 overflow-hidden group"
+              >
+                <div className="watermark-number select-none">
+                  {prod.num}
                 </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Zero-gas-war NFT collection kit with Merkle allowlists, delayed reveal choreography, and EIP-2981 Safe royalties.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">RareMint.sol</span>
-                <Link href="/raremint" className="text-teal hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
-            </div>
 
-            {/* RareToken */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareToken</span>
-                  <Badge variant="amber">OPEN-SOURCE CORE</Badge>
-                </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Fixed-supply ERC-20 with timestamp-based cliff/linear vesting and Synthetix-style APY staking safe from BSC block drift.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">RareToken.sol + Vesting</span>
-                <Link href="/raretoken" className="text-amber hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
-            </div>
+                <div className="space-y-3 relative z-10">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs text-teal font-semibold">
+                      {prod.num} // CORE
+                    </span>
+                    <Badge variant={prod.badgeVariant}>{prod.badge}</Badge>
+                  </div>
 
-            {/* RareChars */}
-            <div className="rounded-2xl border border-violet/30 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareChars</span>
-                  <Badge variant="violet">FLAGSHIP API + SDK</Badge>
-                </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Persistent AI NPCs for Web3 games with pgvector RAG memory and cryptographically verified on-chain action intents on opBNB.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">RareCharsVerifier.sol</span>
-                <Link href="/rarechars" className="text-violet hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
-            </div>
+                  <h3 className="font-display text-2xl font-bold text-white">
+                    {prod.title}
+                  </h3>
 
-            {/* RarePay */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RarePay</span>
-                  <Badge variant="blue">NON-CUSTODIAL SAAS</Badge>
-                </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Crypto checkout on BSC &amp; opBNB (USDT/USDC/BNB) with on-chain 18-decimal validation and signed HMAC webhooks.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">RarePayRouter.sol</span>
-                <Link href="/rarepay" className="text-blue hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
-            </div>
+                  <p className="text-sm text-gray-300 leading-relaxed font-sans">
+                    {prod.desc}
+                  </p>
 
-            {/* RareAgent */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareAgent</span>
-                  <Badge variant="orange">ERC-4337 ACCOUNT</Badge>
+                  {/* Avark Style Capability Tags */}
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {prod.tags.map((t) => (
+                      <span key={t} className="service-pill">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Autonomous AI agent smart accounts with scoped session keys, contract allowlists, daily spend caps, and kill-switches.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">Session Key Module</span>
-                <Link href="/rareagent" className="text-orange hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
-            </div>
 
-            {/* RareDash */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareDash</span>
-                  <Badge variant="lime">ANALYTICS SAAS</Badge>
+                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs relative z-10">
+                  <span className="text-gray-500">{prod.contract}</span>
+                  <Link
+                    href={prod.href}
+                    className="text-teal hover:underline font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform"
+                  >
+                    Open Product Page →
+                  </Link>
                 </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Sub-second Ponder-indexed contract telemetry, whale alert webhooks, and live on-chain holder intelligence.
-                </p>
               </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">Ponder v0.7 Indexer</span>
-                <Link href="/raredash" className="text-lime hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
-        {/* B2B SERVICES & PRICING TABLE (WITH CURRENCY TOGGLE) */}
+        {/* B2B SERVICES & PRICING TABLE - AVARK STRUCTURED CAPABILITIES */}
         <section className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
             <div>
               <span className="font-mono text-xs text-teal tracking-wider uppercase">
-                03 // Delivery Pipeline &amp; Milestone Pricing
+                03 // DELIVERY PIPELINE &amp; MILESTONE PRICING
               </span>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
                 B2B Engineering Services
@@ -499,19 +547,32 @@ export default function StudioHomePage() {
               return (
                 <div
                   key={item.title}
-                  className="rounded-2xl border border-white/10 bg-panel p-6 flex flex-col justify-between space-y-6 cyber-card"
+                  className="rounded-2xl border border-white/10 bg-panel p-6 flex flex-col justify-between space-y-6 cyber-card hover:border-teal/40 transition-all duration-300"
                 >
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs text-teal">{item.timeline}</span>
+                      <span className="font-mono text-xs text-teal font-semibold">
+                        {item.index} / 06 • {item.timeline}
+                      </span>
                       <Badge variant={item.accent as any}>{item.badge}</Badge>
                     </div>
+
                     <h3 className="font-display text-xl font-bold text-white">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-gray-400 leading-relaxed min-h-[40px]">
+
+                    <p className="text-xs text-gray-300 leading-relaxed font-sans min-h-[40px]">
                       {item.scope}
                     </p>
+
+                    {/* Avark Style Capability Pills */}
+                    <div className="flex flex-wrap gap-1.5 pt-2">
+                      {item.tags.map((t) => (
+                        <span key={t} className="service-pill">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
                   <div className="space-y-4 pt-4 border-t border-white/5">
@@ -527,7 +588,7 @@ export default function StudioHomePage() {
 
                     <button
                       onClick={() => setIntakeOpen(true)}
-                      className="w-full py-2.5 rounded-xl border border-white/15 bg-white/5 text-white font-mono text-xs hover:border-teal hover:bg-teal hover:text-void font-bold transition"
+                      className="w-full py-2.5 rounded-xl border border-white/15 bg-white/5 text-white font-mono text-xs hover:border-teal hover:bg-teal hover:text-void font-bold transition shadow-sm"
                     >
                       Book Service Intake →
                     </button>
@@ -548,10 +609,10 @@ export default function StudioHomePage() {
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
                 Engineered by Ahmed Riyaz (ARZ) &amp; Powered by ReadyPI
               </h2>
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="text-sm text-gray-300 leading-relaxed font-sans">
                 Rareware Studio is led by Ahmed Riyaz (ARZ), an experienced engineering lead operating across blockchain and AI automation. Rareware’s flagship AI product, RareChars, leverages our proprietary ReadyPI multi-model API gateway (150+ models) to deliver persistent game NPC intelligence with zero gas drift and predictable token economics.
               </p>
-              <div className="pt-2 flex flex-wrap gap-4 font-mono text-xs text-gray-300">
+              <div className="pt-2 flex flex-wrap gap-3 font-mono text-xs text-gray-300">
                 <span className="px-3 py-1.5 rounded-lg bg-void border border-white/10">
                   Non-Custodial Architecture
                 </span>
@@ -577,7 +638,7 @@ export default function StudioHomePage() {
         <section className="space-y-8">
           <div className="border-b border-white/10 pb-4">
             <span className="font-mono text-xs text-teal tracking-wider uppercase">
-              05 // Common Questions
+              05 // Architectural FAQs
             </span>
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
               Frequently Asked Questions
@@ -600,7 +661,7 @@ export default function StudioHomePage() {
                   </span>
                 </button>
                 {faqOpen === idx && (
-                  <div className="px-5 pb-5 text-sm text-gray-400 leading-relaxed border-t border-white/5 pt-3">
+                  <div className="px-5 pb-5 text-sm text-gray-300 leading-relaxed border-t border-white/5 pt-3 font-sans">
                     {faq.a}
                   </div>
                 )}

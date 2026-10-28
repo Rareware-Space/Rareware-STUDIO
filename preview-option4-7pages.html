@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RAREWARE STUDIO // Cyber-Monumental Edition (Option 4 Typography)</title>
   
-  <!-- Option 4 Typography: Unbounded (Display), DM Sans (Body/UI), Space Mono (Technical/Telemetry) -->
+  <!-- Wonderland x Avark Luxury Typography: Syne + Space Grotesk (Display), Manrope (Body/UI), JetBrains Mono (Technical/Telemetry) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -32,12 +32,12 @@
             cyan: { DEFAULT: '#22D3EE', glow: 'rgba(34, 211, 238, 0.25)' },
           },
           fontFamily: {
-            display: ['Unbounded', 'sans-serif'],
-            sans: ['DM Sans', 'sans-serif'],
-            mono: ['Space Mono', 'monospace'],
+            display: ['Syne', 'Space Grotesk', 'sans-serif'],
+            sans: ['Manrope', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Space Mono', 'monospace'],
           },
           letterSpacing: {
-            display: '-0.03em',
+            display: '-0.035em',
           },
           lineHeight: {
             tightDisplay: '1.06',
@@ -50,19 +50,21 @@
     body {
       background-color: #050507;
       color: #F3F4F6;
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
       overflow-x: hidden;
+      letter-spacing: -0.01em;
     }
     .font-display {
-      font-family: 'Unbounded', sans-serif;
-      letter-spacing: -0.03em;
+      font-family: 'Syne', 'Space Grotesk', sans-serif;
+      letter-spacing: -0.035em;
       line-height: 1.06;
     }
     .font-sans {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
     }
     .font-mono {
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', 'Space Mono', monospace;
+      letter-spacing: -0.02em;
     }
     .grid-bg {
       background-size: 40px 40px;
