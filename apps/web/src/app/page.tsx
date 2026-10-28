@@ -522,12 +522,109 @@ export default function StudioHomePage() {
           </div>
         </section>
 
+        {/* 03 // FEATURED CASE STUDY - AVARK METACADE HIGHLIGHT */}
+        <section className="space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <span className="font-mono text-xs text-teal tracking-wider uppercase">
+                03 // FEATURED CASE STUDY • METACADE
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
+                Elevating the future of web3 gaming &amp; AI
+              </h2>
+            </div>
+            <Link
+              href="/case-studies/metacade"
+              className="font-mono text-xs text-teal hover:underline flex items-center gap-1.5 font-semibold"
+            >
+              <span>View Full Case Study &amp; Interactive Demo</span>
+              <span>→</span>
+            </Link>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-panel via-obsidian to-void p-8 sm:p-12 relative overflow-hidden cyber-card">
+            <div className="watermark-number select-none">
+              CS
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              <div className="lg:col-span-7 space-y-5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge variant="teal">AVARK SPEC CASE STUDY</Badge>
+                  <span className="font-mono text-xs text-gray-400">METACADE ($MCADE) • CROSS-CHAIN</span>
+                </div>
+
+                <h3 className="font-display text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                  The City of Metacadia: Unifying 4 Quarters, Autonomous AI NPCs &amp; 3D Staking
+                </h3>
+
+                <p className="text-sm text-gray-300 font-sans leading-relaxed">
+                  Metacade needed a digital presence as forward-thinking as its vision. We engineered an interactive 3D virtual city navigating its 4 core quarters—competitive tournaments, autonomous AI NPCs with EIP-712 cryptographic intents, crystal XP leaderboards, and non-custodial token staking.
+                </p>
+
+                {/* Avark Capability Pills */}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <span className="service-pill"># 3D City of Metacadia</span>
+                  <span className="service-pill"># ReadyPI AI NPCs</span>
+                  <span className="service-pill"># EIP-712 Intent Engine</span>
+                  <span className="service-pill"># 450ms Fast Finality</span>
+                  <span className="service-pill"># Mascot Max Runner</span>
+                  <span className="service-pill"># Ponder v0.7 Sync</span>
+                </div>
+
+                <div className="pt-2 flex flex-wrap items-center gap-4">
+                  <Link
+                    href="/case-studies/metacade"
+                    className="px-6 py-3 rounded-xl bg-teal text-void font-display font-bold text-xs hover:opacity-90 transition glow-teal shadow-lg shadow-teal/20"
+                  >
+                    Open Metacade Case Study &amp; Intent Simulator →
+                  </Link>
+                  <span className="font-mono text-xs text-gray-400">
+                    Client: Russell Bennett (CEO, Metacade)
+                  </span>
+                </div>
+              </div>
+
+              {/* Verified Results Grid Card */}
+              <div className="lg:col-span-5 rounded-2xl bg-void/90 border border-teal/30 p-6 space-y-5 shadow-2xl">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <span className="font-mono text-xs text-teal font-bold uppercase">// VERIFIED IMPACT METRICS</span>
+                  <Badge variant="teal">PRODUCTION</Badge>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 font-mono">
+                  <div className="p-3 rounded-xl bg-panel/80 border border-white/5">
+                    <span className="text-gray-500 text-[10px] block">ECOSYSTEM VOLUME</span>
+                    <span className="font-display text-2xl font-extrabold text-white">$48.5M+</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-panel/80 border border-white/5">
+                    <span className="text-gray-500 text-[10px] block">DAILY ACTIONS</span>
+                    <span className="font-display text-2xl font-extrabold text-teal">150K+</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-panel/80 border border-white/5">
+                    <span className="text-gray-500 text-[10px] block">CHAIN LATENCY</span>
+                    <span className="font-display text-2xl font-extrabold text-white">450ms</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-panel/80 border border-white/5">
+                    <span className="text-gray-500 text-[10px] block">SECURITY AUDIT</span>
+                    <span className="font-display text-2xl font-extrabold text-teal">100%</span>
+                  </div>
+                </div>
+
+                <blockquote className="text-xs text-gray-300 font-sans italic border-l-2 border-teal pl-3 py-1">
+                  &quot;They didn’t just deliver a stunning visual identity — they created a seamless, intuitive user experience that perfectly captured our mission.&quot;
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* B2B SERVICES & PRICING TABLE - AVARK STRUCTURED CAPABILITIES */}
         <section className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
             <div>
               <span className="font-mono text-xs text-teal tracking-wider uppercase">
-                03 // DELIVERY PIPELINE &amp; MILESTONE PRICING
+                04 // DELIVERY PIPELINE &amp; MILESTONE PRICING
               </span>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
                 B2B Engineering Services
@@ -604,7 +701,7 @@ export default function StudioHomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <span className="font-mono text-xs text-teal uppercase tracking-wider">
-                04 // Technical Leadership &amp; Operational Firewall
+                05 // Technical Leadership &amp; Operational Firewall
               </span>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
                 Engineered by Ahmed Riyaz (ARZ) &amp; Powered by ReadyPI
@@ -638,7 +735,7 @@ export default function StudioHomePage() {
         <section className="space-y-8">
           <div className="border-b border-white/10 pb-4">
             <span className="font-mono text-xs text-teal tracking-wider uppercase">
-              05 // Architectural FAQs
+              06 // Architectural FAQs
             </span>
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
               Frequently Asked Questions

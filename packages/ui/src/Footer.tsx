@@ -53,6 +53,7 @@ export const Footer: React.FC = () => {
               <li><a href="/rarepay" className="hover:text-blue transition">RarePay (Checkout)</a></li>
               <li><a href="/rareagent" className="hover:text-orange transition">RareAgent (ERC-4337)</a></li>
               <li><a href="/raredash" className="hover:text-lime transition">RareDash (Ponder Indexer)</a></li>
+              <li className="pt-1"><a href="/case-studies/metacade" className="text-teal font-semibold hover:underline">Case Study: Metacade →</a></li>
             </ul>
           </div>
 
