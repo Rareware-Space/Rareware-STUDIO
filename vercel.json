@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "rootDirectory": "apps/web",
+  "buildCommand": "pnpm --filter @rareware/ui build && pnpm --filter @rareware/sdk build && pnpm --filter @rareware/web build",
+  "installCommand": "pnpm install"
+}

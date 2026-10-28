@@ -1,0 +1,26 @@
+{
+  "name": "@rareware/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Hono REST API for RareChars (AI Game Characters + EIP-712 Intents) and RarePay (BSC/opBNB Checkout)",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -w -p tsconfig.json",
+    "lint": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "node --eval \"console.log('@rareware/api: baseline test pass')\""
+  },
+  "dependencies": {
+    "@rareware/sdk": "workspace:*",
+    "hono": "4.6.14",
+    "viem": "2.21.54",
+    "zod": "3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "typescript": "5.7.2"
+  }
+}
