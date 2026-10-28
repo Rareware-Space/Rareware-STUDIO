@@ -467,26 +467,34 @@ export default function MetacadeCaseStudyPage() {
               <div className="lg:col-span-7 space-y-6">
                 {/* Cinema Visual Dual Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="rounded-2xl overflow-hidden border border-white/10 relative group">
-                    <img
-                      src="/media/mascot-max-jetpack.jpg"
-                      alt="Mascot Max Jetpack Runner"
-                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                  <div className="rounded-2xl overflow-hidden border border-white/10 relative group h-48 sm:h-52">
+                    <Image
+                      src={METACADE_MEDIA.mascotMax.src}
+                      alt={METACADE_MEDIA.mascotMax.alt}
+                      fill
+                      placeholder="blur"
+                      blurDataURL={METACADE_MEDIA.mascotMax.blurDataURL}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent" />
-                    <span className="absolute bottom-3 left-3 text-[11px] font-mono text-teal">
+                    <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute bottom-3 left-3 text-[11px] font-mono text-teal z-10">
                       Mascot Max Jetpack Flight
                     </span>
                   </div>
 
-                  <div className="rounded-2xl overflow-hidden border border-white/10 relative group">
-                    <img
-                      src="/media/ai-agent-neural-core.jpg"
-                      alt="AI Neural Intent Core"
-                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                  <div className="rounded-2xl overflow-hidden border border-white/10 relative group h-48 sm:h-52">
+                    <Image
+                      src={METACADE_MEDIA.aiNeuralCore.src}
+                      alt={METACADE_MEDIA.aiNeuralCore.alt}
+                      fill
+                      placeholder="blur"
+                      blurDataURL={METACADE_MEDIA.aiNeuralCore.blurDataURL}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent" />
-                    <span className="absolute bottom-3 left-3 text-[11px] font-mono text-violet">
+                    <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute bottom-3 left-3 text-[11px] font-mono text-violet z-10">
                       EIP-712 AI Neural Core
                     </span>
                   </div>
