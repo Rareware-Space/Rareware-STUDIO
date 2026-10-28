@@ -2,7 +2,27 @@
   "name": "rareware-chain",
   "version": "1.0.0",
   "private": true,
-  "description": "Rareware Studio Blockchain Monorepo \u2014 Contracts, SDK, Cinematic dApps, RareChars AI API, and RarePay",
+  "description": "Rareware Studio Blockchain Monorepo — Contracts, SDK, Cinematic dApps, RareChars AI API, and RarePay",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arz282-ctrl/HealME.git"
+  },
+  "homepage": "https://rarewarestudio.space",
+  "author": "Ahmed Riyaz (ARZ) <contact@rarewarestudio.space>",
+  "license": "MIT",
+  "keywords": [
+    "web3",
+    "solidity",
+    "foundry",
+    "bsc",
+    "opbnb",
+    "ai-agent",
+    "ai-npc",
+    "eip-712",
+    "erc-4337",
+    "crypto-payments",
+    "rareware"
+  ],
   "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=22.0.0",
