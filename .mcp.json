@@ -1,34 +1,8 @@
 {
   "mcpServers": {
-    "rareware-chain-readonly": {
-      "command": "pnpm",
-      "args": [
-        "--filter",
-        "@rareware/mcp-chain-readonly",
-        "dev"
-      ],
-      "env": {
-        "BSC_TESTNET_RPC_URL": "https://data-seed-prebsc-1-s1.bnbchain.org:8545",
-        "OPBNB_TESTNET_RPC_URL": "https://opbnb-testnet-rpc.bnbchain.org"
-      }
-    },
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp"
-    },
-    "supabase": {
-      "type": "http",
-      "url": "https://mcp.supabase.com/mcp?read_only=true"
-    },
-    "vercel": {
-      "type": "http",
-      "url": "https://mcp.vercel.com"
-    },
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "@playwright/mcp@latest"
-      ]
     }
   }
 }

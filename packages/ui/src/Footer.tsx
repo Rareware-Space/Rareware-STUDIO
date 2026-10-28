@@ -1,4 +1,5 @@
 import React from 'react';
+import { RarewareLogoEmblem } from './Navbar';
 
 export const Footer: React.FC = () => {
   return (
@@ -7,13 +8,21 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand & Manifesto */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-8 rounded-lg bg-teal/15 border border-teal/40 flex items-center justify-center font-display font-black text-teal text-base">
-                RW
+            <div className="flex items-center gap-3.5">
+              <RarewareLogoEmblem className="h-9 w-11" />
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-display text-base font-extrabold tracking-[0.14em] text-white">
+                    RAREWARE
+                  </span>
+                  <span className="font-display text-xs font-bold tracking-[0.22em] text-teal">
+                    STUDIO
+                  </span>
+                </div>
+                <span className="font-mono text-[9px] text-gray-400 tracking-[0.16em]">
+                  BLOCKCHAIN PRODUCTS <span className="text-teal">MARKETPLACE</span>
+                </span>
               </div>
-              <span className="font-display text-base font-bold tracking-wider text-white">
-                RAREWARE STUDIO
-              </span>
             </div>
             <p className="text-sm leading-relaxed text-gray-400 max-w-sm">
               Bespoke blockchain development, AI game characters, and cinema-grade Web3 frontends. Built for BSC, opBNB, and EVM with an AI-assisted, security-first pipeline.

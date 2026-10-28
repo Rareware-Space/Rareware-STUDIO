@@ -214,14 +214,28 @@
   <!-- TOP TELEMETRY BAR -->
   <div class="border-b border-white/10 bg-obsidian/95 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <span class="flex h-2 w-2 relative">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-teal"></span>
-        </span>
-        <span class="font-display font-bold tracking-wider text-xs sm:text-sm text-white">
-          RAREWARE STUDIO <span class="text-teal">// CYBER-MONUMENTAL v2.0</span>
-        </span>
+      <div onclick="switchTab('studio')" class="flex items-center gap-3.5 cursor-pointer group">
+        <svg class="w-10 h-8 shrink-0 transition-transform duration-300 group-hover:scale-105" viewBox="0 0 96 80" fill="none">
+          <defs>
+            <linearGradient id="rw-cyan-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2AFADF" />
+              <stop offset="50%" stop-color="#00E5FF" />
+              <stop offset="100%" stop-color="#0097B2" />
+            </linearGradient>
+          </defs>
+          <path d="M18 12 H66 L82 28 L60 50 L50 40 L63 27 H28 Z" fill="url(#rw-cyan-grad)" />
+          <path d="M25 32 H42 L78 68 H61 Z" fill="url(#rw-cyan-grad)" />
+          <rect x="24" y="42" width="9" height="9" fill="#00E5FF" />
+          <rect x="16" y="54" width="7" height="7" fill="#2AFADF" />
+          <rect x="30" y="54" width="9" height="16" fill="url(#rw-cyan-grad)" />
+        </svg>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5">
+            <span class="font-display font-extrabold tracking-[0.14em] text-xs sm:text-sm text-white">RAREWARE</span>
+            <span class="font-display font-bold tracking-[0.22em] text-[11px] text-teal">STUDIO</span>
+          </div>
+          <span class="font-mono text-[9px] tracking-[0.16em] text-gray-400">BLOCKCHAIN PRODUCTS <span class="text-teal">MARKETPLACE</span></span>
+        </div>
       </div>
       <div class="flex items-center gap-6 text-[11px] font-mono text-gray-400">
         <div>NETWORK: <span class="text-teal font-bold">BSC (56) • opBNB (204)</span></div>

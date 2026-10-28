@@ -13,6 +13,26 @@ export interface NavbarProps {
   onToggleWallet?: () => void;
 }
 
+export const RarewareLogoEmblem: React.FC<{ className?: string }> = ({ className = 'h-9 w-11' }) => (
+  <svg className={className} viewBox="0 0 96 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Rareware Studio Emblem">
+    <defs>
+      <linearGradient id="rw-cyan-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#2AFADF" />
+        <stop offset="50%" stopColor="#00E5FF" />
+        <stop offset="100%" stopColor="#0097B2" />
+      </linearGradient>
+    </defs>
+    {/* Top Geometric Loop of R */}
+    <path d="M18 12 H66 L82 28 L60 50 L50 40 L63 27 H28 Z" fill="url(#rw-cyan-grad)" />
+    {/* Diagonal Leg of R */}
+    <path d="M25 32 H42 L78 68 H61 Z" fill="url(#rw-cyan-grad)" />
+    {/* Fragmented Digital Pixel Blocks on Left */}
+    <rect x="24" y="42" width="9" height="9" fill="#00E5FF" />
+    <rect x="16" y="54" width="7" height="7" fill="#2AFADF" />
+    <rect x="30" y="54" width="9" height="16" fill="url(#rw-cyan-grad)" />
+  </svg>
+);
+
 export const Navbar: React.FC<NavbarProps> = ({
   currentProduct = 'studio',
   currencyMode,
@@ -50,17 +70,22 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Main Navbar */}
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        {/* Brand */}
-        <a href="/" className="flex items-center gap-3 group">
-          <div className="h-8 w-8 rounded-lg bg-teal/15 border border-teal/40 flex items-center justify-center font-display font-black text-teal text-base group-hover:bg-teal group-hover:text-void transition-all duration-300">
-            RW
+        {/* Official Rareware Studio Brand Lockup */}
+        <a href="/" className="flex items-center gap-3.5 group">
+          <div className="transition-transform duration-300 group-hover:scale-105">
+            <RarewareLogoEmblem className="h-9 w-11" />
           </div>
           <div className="flex flex-col">
-            <span className="font-display text-sm font-bold tracking-wider text-white">
-              RAREWARE STUDIO
-            </span>
-            <span className="font-mono text-[10px] text-teal tracking-tight">
-              BLOCKCHAIN &amp; AI LAB
+            <div className="flex items-center gap-1.5">
+              <span className="font-display text-sm font-extrabold tracking-[0.14em] text-white">
+                RAREWARE
+              </span>
+              <span className="font-display text-xs font-bold tracking-[0.22em] text-teal">
+                STUDIO
+              </span>
+            </div>
+            <span className="font-mono text-[9px] text-gray-400 tracking-[0.16em]">
+              BLOCKCHAIN PRODUCTS <span className="text-teal">MARKETPLACE</span>
             </span>
           </div>
         </a>
