@@ -78,7 +78,7 @@ Clone and initialize the repository:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Rareware-Space/HealME.git rareware-studio
+git clone https://github.com/Rareware-Space/Rareware-STUDIO-Web.git rareware-studio
 cd rareware-studio
 
 # 2. Install workspace dependencies
@@ -160,7 +160,7 @@ Rareware operates under strict non-negotiable security rules:
 To complete renaming this repository on GitHub from `HealME` to `rareware-studio` or `rareware-chain`:
 
 1. **Rename Repository on GitHub**:
-   - Go to your repository on GitHub: `https://github.com/Rareware-Space/HealME`
+   - Go to your repository on GitHub: `https://github.com/Rareware-Space/Rareware-STUDIO-Web`
    - Click **Settings** (top navigation tab).
    - Under **General** > **Repository name**, enter: `rareware-studio` (or `rareware-chain`).
    - Click **Rename**.
