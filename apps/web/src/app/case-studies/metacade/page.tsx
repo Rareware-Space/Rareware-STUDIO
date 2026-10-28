@@ -554,12 +554,125 @@ export default function MetacadeCaseStudyPage() {
           </section>
         </ScrollReveal>
 
+        {/* CHAPTER 5: LIVE GAMEPLAY HUD & 3D CHARACTER ENGINE */}
+        <ScrollReveal>
+          <section className="space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+              <div>
+                <span className="font-mono text-xs text-teal tracking-wider uppercase">
+                  05 // DIEGETIC HUD &amp; 3D CHARACTER ENGINE
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
+                  Metacade In-Game Combat HUD &amp; AI Netrunner &quot;Cipher&quot;
+                </h2>
+              </div>
+              <span className="font-mono text-xs text-teal flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-teal animate-pulse" />
+                Unreal Engine 5.4 &bull; 450ms opBNB Telemetry
+              </span>
+            </div>
+
+            {/* In-Game Live HUD Presentation */}
+            <div className="rounded-2xl md:rounded-3xl border border-white/10 bg-[#0E1017] p-6 sm:p-8 space-y-6 overflow-hidden">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono uppercase tracking-widest text-teal">
+                    /Live Diegetic HUD Interface
+                  </span>
+                  <span className="text-xs font-mono text-gray-400">
+                    Real-Time Web3 Battle Arena
+                  </span>
+                </div>
+                <p className="text-sm text-gray-300 font-sans leading-relaxed">
+                  The Metacade live interface bridges high-fidelity AAA diegetic game rendering with sub-second on-chain verification. Players inspect on-chain inventory, monitor real-time opBNB network ping (450ms), and interact directly with persistent AI NPCs without leaving the combat viewport.
+                </p>
+              </div>
+
+              {/* Full-Bleed HUD Screenshot with Ambient Glow */}
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/15 bg-black group shadow-2xl">
+                <Image
+                  src={METACADE_MEDIA.gameHudInterface.src}
+                  alt={METACADE_MEDIA.gameHudInterface.alt}
+                  fill
+                  placeholder="blur"
+                  blurDataURL={METACADE_MEDIA.gameHudInterface.blurDataURL}
+                  sizes="(max-width: 1280px) 100vw, 1200px"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+
+                {/* Live Telemetry Pill Overlays */}
+                <div className="absolute top-4 left-4 rounded-full border border-white/10 bg-void/85 px-3 py-1 font-mono text-[10px] text-gray-300 backdrop-blur-md">
+                  <span className="text-teal font-semibold">METACADE COMBAT HUD</span> &bull; 4-QUARTER RADAR
+                </div>
+                <div className="absolute bottom-4 left-4 rounded-full border border-white/10 bg-void/85 px-3.5 py-1.5 font-mono text-xs text-teal backdrop-blur-md">
+                  <span className="h-1.5 w-1.5 rounded-full bg-teal animate-pulse inline-block mr-2" />
+                  PING: 450ms (opBNB) &bull; RARE: 124,500 &bull; GAS: 0.0001 BNB
+                </div>
+                <div className="absolute bottom-4 right-4 rounded-full border border-violet/30 bg-violet/20 px-3.5 py-1.5 font-mono text-xs text-white backdrop-blur-md">
+                  VERIFY INTENT (EIP-712)
+                </div>
+              </div>
+            </div>
+
+            {/* 3D Character "Cipher" Netrunner Feature */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-4">
+              <div className="lg:col-span-6 relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-black group">
+                <Image
+                  src={METACADE_MEDIA.characterCipher.src}
+                  alt={METACADE_MEDIA.characterCipher.alt}
+                  fill
+                  placeholder="blur"
+                  blurDataURL={METACADE_MEDIA.characterCipher.blurDataURL}
+                  sizes="(max-width: 768px) 100vw, 600px"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-4 text-xs font-mono text-teal">
+                  <div>CIPHER &bull; AUTONOMOUS AI NETRUNNER</div>
+                  <div className="text-[10px] text-gray-400">Rain-Slicked Metacadia District &bull; UE 5.4 Cinematic</div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-6 space-y-4">
+                <span className="text-xs font-mono uppercase tracking-widest text-violet">
+                  /Autonomous Character Architecture
+                </span>
+                <h3 className="font-display text-2xl font-bold text-white">
+                  Persistent 3D AI NPCs Powered by pgvector
+                </h3>
+                <p className="text-sm text-gray-300 font-sans leading-relaxed">
+                  Unlike traditional hardcoded game NPCs, Cipher maintains persistent semantic memory across sessions using 1,536-dimensional pgvector embeddings. When initiating a quest or combat maneuver, Cipher reasons off-chain and constructs an EIP-712 signed typed intent.
+                </p>
+                <div className="grid grid-cols-2 gap-3 pt-2 font-mono text-xs">
+                  <div className="rounded-xl border border-white/10 bg-void/60 p-3 space-y-1">
+                    <div className="text-gray-500 uppercase text-[10px]">Visor Telemetry</div>
+                    <div className="text-teal font-semibold">EIP-712 Ocular HUD</div>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-void/60 p-3 space-y-1">
+                    <div className="text-gray-500 uppercase text-[10px]">Memory Store</div>
+                    <div className="text-violet font-semibold">pgvector RAG Embeddings</div>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-void/60 p-3 space-y-1">
+                    <div className="text-gray-500 uppercase text-[10px]">Key Exposure</div>
+                    <div className="text-emerald-400 font-semibold">Zero-Key Cryptographic Safety</div>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-void/60 p-3 space-y-1">
+                    <div className="text-gray-500 uppercase text-[10px]">Execution Chain</div>
+                    <div className="text-white font-semibold">opBNB Sub-Second EVM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
+
         {/* VERBATIM CLIENT TESTIMONIAL (AVARK EXACT) */}
         <ScrollReveal>
           <section className="rounded-3xl border border-teal/30 bg-gradient-to-r from-panel via-obsidian to-void p-8 sm:p-14 relative overflow-hidden">
             <div className="max-w-4xl space-y-6 relative z-10">
               <span className="font-mono text-xs text-teal uppercase tracking-wider block">
-                05 // CLIENT EXECUTIVE TESTIMONIAL
+                06 // CLIENT EXECUTIVE TESTIMONIAL
               </span>
 
               <blockquote className="font-display text-xl sm:text-2xl lg:text-3xl font-medium text-white leading-relaxed">

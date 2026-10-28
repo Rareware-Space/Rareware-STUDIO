@@ -44,6 +44,10 @@ export default function StudioHomePage() {
       href: '/rarechars',
       accent: 'violet',
       bgGradient: 'from-violet/10 via-obsidian to-void',
+      hasImage: true,
+      imageSrc: '/media/character-npc-cipher-3d.jpg',
+      imageCaption: 'Cipher • 3D AI Netrunner NPC',
+      imageBadge: 'EIP-712 Intent Visor',
     },
     {
       num: '/03',
@@ -69,7 +73,9 @@ export default function StudioHomePage() {
       accent: 'teal',
       bgGradient: 'from-teal/15 via-obsidian to-void',
       hasImage: true,
-      imageSrc: '/media/metacadia-city-aerial.jpg',
+      imageSrc: '/media/game-interface-metacade-hud.jpg',
+      imageCaption: 'Metacade AAA Combat HUD',
+      imageBadge: 'opBNB 450ms Ping',
     },
   ];
 
@@ -397,10 +403,10 @@ export default function StudioHomePage() {
                             sizes="(max-width: 768px) 100vw, 400px"
                             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
                           <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-teal">
-                            <span>WebGL Cyber City Shader</span>
-                            <span>Live 3D View</span>
+                            <span>{build.imageCaption || 'Interactive Visual'}</span>
+                            <span className="text-gray-300 bg-white/10 px-2 py-0.5 rounded-full border border-white/10">{build.imageBadge || 'Live 3D'}</span>
                           </div>
                         </div>
                       </div>
