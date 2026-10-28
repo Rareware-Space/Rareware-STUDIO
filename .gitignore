@@ -1,8 +1,37 @@
+# Dependencies
 node_modules/
-build/
+.pnp
+.pnp.js
+
+# Foundry build & cache
+packages/contracts/out/
+packages/contracts/cache/
+packages/contracts/broadcast/
+packages/contracts/lcov.info
+
+# Next.js / TS builds
+.next/
 dist/
-coverage/
-.DS_Store
-*.log
-.env*
+build/
+*.tsbuildinfo
+
+# Secrets & Keys (NEVER COMMIT)
+.env
+.env.*
 !.env.example
+*.pem
+*.key
+*.keystore
+**/keystore/**
+mnemonic.txt
+
+# Logs & OS
+*.log
+npm-debug.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+.vercel
+.supabase
+__pycache__/
+*.pyc

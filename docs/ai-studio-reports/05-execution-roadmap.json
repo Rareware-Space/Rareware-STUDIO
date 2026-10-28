@@ -1,0 +1,83 @@
+{
+  "current_status": "All 5 Build Phases (Monorepo + Guardrails, RareMint, RareToken, RarePay, RareChars, and Web3 Site Copy) are 100% architected and coded.",
+  "what_is_next_execution_roadmap": [
+    {
+      "step": 1,
+      "title": "Materialize & Run Tests Locally in Antigravity IDE (Today — 15 mins)",
+      "owner": "You (ARZ) in Antigravity Terminal",
+      "commands": [
+        "python3 install_rareware.py",
+        "cd rareware-chain && pnpm install",
+        "cd packages/contracts && forge install foundry-rs/forge-std --no-commit && forge install OpenZeppelin/openzeppelin-contracts@v5.2.0 --no-commit",
+        "forge test -vvv",
+        "forge coverage --report summary"
+      ],
+      "goal": "Verify all unit, fuzz (1,000 runs), and invariant (256 runs) tests pass locally on your machine."
+    },
+    {
+      "step": 2,
+      "title": "Publish Open-Source Repos on github.com/Rareware-Space (Days 2–3)",
+      "owner": "You (ARZ)",
+      "commands": [
+        "git init && git checkout -b main",
+        "git add . && git commit -m \"feat: initialize rareware-chain monorepo and open-source kits\"",
+        "gh repo create Rareware-Space/rareware-chain --public --source=. --remote=origin --push"
+      ],
+      "goal": "Populate your GitHub org (currently 0 public repos) so clients and BNB Chain grant reviewers can inspect your code and CI badges."
+    },
+    {
+      "step": 3,
+      "title": "Human-Only Testnet Broadcast on BSC Testnet (97) & opBNB Testnet (5611) (Days 4–5)",
+      "owner": "You (ARZ) — Human-Only per Hard Rule #2",
+      "commands": [
+        "cp .env.example .env  # Fill in BSC_TESTNET_RPC_URL, OPBNB_TESTNET_RPC_URL, and BSCSCAN_API_KEY",
+        "cd packages/contracts",
+        "forge script script/DeployRareMint.s.sol:DeployRareMint --rpc-url bsc_testnet --broadcast --verify -vvvv",
+        "forge script script/DeployRareTokenKit.s.sol:DeployRareTokenKit --rpc-url bsc_testnet --broadcast --verify -vvvv"
+      ],
+      "goal": "Get verified testnet contract links on BscScan Testnet and opBNBScan Testnet to link inside your READMEs and live demos."
+    },
+    {
+      "step": 4,
+      "title": "Update Live Storefront at https://www.rarewarestudio.space/ (Week 2)",
+      "owner": "You (ARZ) + Me",
+      "action": "Replace the current HFT crypto trading copy on your Netlify site with the new 4 Pillars, fixed-price B2B Services table ($1.5k–$30k), and links to RareMint, RareToken, RarePay, and RareChars.",
+      "goal": "Align your live agency site with your new blockchain + AI character studio positioning."
+    },
+    {
+      "step": 5,
+      "title": "BNB Ecosystem Submissions & Outbound GTM (Weeks 3+)",
+      "owner": "You (ARZ) + Me",
+      "actions": [
+        "Submit PR to github.com/bnb-chain/dev-tools-list for RareChars (Category: AI Toolings, Chains: bsc,opbnb, Tags: Game,AI).",
+        "Submit RareChars + 1-scene opBNB demo game to BNB Hack (rolling bi-weekly evaluation) and MVB / YZi Labs EASY Residency.",
+        "Post 2 build-in-public clips per week on X/LinkedIn combining Foundry terminal test runs with GSAP cinematic UI animations.",
+        "Send 20 targeted DMs/emails per week to BNB/Dubai/ME Web3 projects with ugly frontends or upcoming token/NFT launches."
+      ],
+      "goal": "Land your first 3 paying Web3 clients and qualify for BNB Chain builder grants."
+    }
+  ],
+  "choose_your_immediate_next_action": [
+    {
+      "option": "1",
+      "label": "Generate a Single Consolidated 'install_all_phases.py' Script",
+      "description": "I will merge every single Solidity contract, test file, API route, SDK file, and hook from Phases 1, 2, 3, 4, and 5 into ONE self-contained Python file so you only have to run one script to write all 45+ full files to your disk."
+    },
+    {
+      "option": "2",
+      "label": "Upgrade Your Live Website (rarewarestudio.space)",
+      "description": "I will inspect the exact DOM/CSS styling of rarewarestudio.space (Lumina / Electric Teal monolith theme) and write the exact drop-in HTML/React/GSAP code for your Web3 Services & Product Kits section."
+    },
+    {
+      "option": "3",
+      "label": "Prepare BNB Chain Grant, MVB & dev-tools-list Submission Pack",
+      "description": "I will write the exact PR markdown for bnb-chain/dev-tools-list, your DappBay listing metadata, and your MVB / BNB AI Hack application pitch for RareChars and RareMint."
+    },
+    {
+      "option": "4",
+      "label": "Generate Outbound Sales & Client SOP Pack",
+      "description": "I will write your 20-message cold outreach templates (X/Telegram/LinkedIn), discovery call script, milestone-based Web3 client contract template (with non-custody & Bangladesh legal firewall clauses), and Upwork/Fiverr fixed-price gig descriptions."
+    }
+  ],
+  "prompt_to_user": "Reply with 1, 2, 3, or 4 (or any combination) and I will execute it immediately."
+}
