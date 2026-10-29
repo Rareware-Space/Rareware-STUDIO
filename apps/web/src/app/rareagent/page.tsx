@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Navbar,
   Footer,
@@ -127,36 +128,57 @@ export default function RareAgentPage() {
         <section className="relative rounded-3xl border border-orange/30 bg-gradient-to-b from-panel via-obsidian to-void p-8 sm:p-14 overflow-hidden">
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-orange/15 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange/10 border border-orange/30 text-orange font-mono text-xs">
-              <span className="h-2 w-2 rounded-full bg-orange animate-pulse" />
-              <span>RAREAGENT // GUARDED ERC-4337 AI ACCOUNTS</span>
-              <span>•</span>
-              <span className="text-gray-300">SESSION KEYS &amp; SPEND CAPS</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange/10 border border-orange/30 text-orange font-mono text-xs">
+                <span className="h-2 w-2 rounded-full bg-orange animate-pulse" />
+                <span>RAREAGENT // GUARDED ERC-4337 AI ACCOUNTS</span>
+                <span>•</span>
+                <span className="text-gray-300">SESSION KEYS &amp; SPEND CAPS</span>
+              </div>
+
+              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
+                AUTONOMOUS ON-CHAIN AI AGENTS WITH{' '}
+                <span className="text-orange">GUARDED SESSION KEYS</span>
+              </h1>
+
+              <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
+                Give your autonomous AI agents on-chain execution powers without risking the treasury. Scoped ERC-4337 session keys, contract allowlists, daily spend limits, and instant human kill-switches.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <a
+                  href="#policy-sandbox"
+                  className="px-6 py-3.5 rounded-xl bg-orange text-white font-display font-bold text-sm hover:opacity-90 transition glow-orange shadow-lg shadow-orange/20"
+                >
+                  Configure Guardrail Policy Below ↓
+                </a>
+                <button
+                  onClick={() => setIntakeOpen(true)}
+                  className="px-6 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-display font-medium text-sm hover:border-orange/50 transition"
+                >
+                  Deploy an Agent Guard Account
+                </button>
+              </div>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
-              AUTONOMOUS ON-CHAIN AI AGENTS WITH{' '}
-              <span className="text-orange">GUARDED SESSION KEYS</span>
-            </h1>
-
-            <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
-              Give your autonomous AI agents on-chain execution powers without risking the treasury. Scoped ERC-4337 session keys, contract allowlists, daily spend limits, and instant human kill-switches.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <a
-                href="#policy-sandbox"
-                className="px-6 py-3.5 rounded-xl bg-orange text-white font-display font-bold text-sm hover:opacity-90 transition glow-orange shadow-lg shadow-orange/20"
-              >
-                Configure Guardrail Policy Below ↓
-              </a>
-              <button
-                onClick={() => setIntakeOpen(true)}
-                className="px-6 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-display font-medium text-sm hover:border-orange/50 transition"
-              >
-                Deploy an Agent Guard Account
-              </button>
+            {/* 3D Hardware Security Enclave Visual */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative aspect-[16/9] lg:aspect-[4/3] w-full rounded-2xl overflow-hidden border border-orange/30 shadow-2xl shadow-orange/10">
+                <Image
+                  src="/media/rareagent-enclave-3d.jpg"
+                  alt="RareAgent ERC-4337 AI Agent Hardware Security Enclave"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-gray-300 bg-void/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                  <span className="text-orange font-semibold">RareAgent • HSM Enclave</span>
+                  <span className="text-gray-400">$500 Cap + Kill Switch</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>

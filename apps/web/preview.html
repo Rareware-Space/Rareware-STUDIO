@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RAREWARE STUDIO // Cyber-Monumental Edition (Option 4 Typography)</title>
   
-  <!-- Option 4 Typography: Unbounded (Display), DM Sans (Body/UI), Space Mono (Technical/Telemetry) -->
+  <!-- Wonderland x Avark Luxury Typography: Syne + Space Grotesk (Display), Manrope (Body/UI), JetBrains Mono (Technical/Telemetry) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -32,12 +32,12 @@
             cyan: { DEFAULT: '#22D3EE', glow: 'rgba(34, 211, 238, 0.25)' },
           },
           fontFamily: {
-            display: ['Unbounded', 'sans-serif'],
-            sans: ['DM Sans', 'sans-serif'],
-            mono: ['Space Mono', 'monospace'],
+            display: ['Syne', 'Space Grotesk', 'sans-serif'],
+            sans: ['Manrope', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Space Mono', 'monospace'],
           },
           letterSpacing: {
-            display: '-0.03em',
+            display: '-0.035em',
           },
           lineHeight: {
             tightDisplay: '1.06',
@@ -50,19 +50,21 @@
     body {
       background-color: #050507;
       color: #F3F4F6;
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
       overflow-x: hidden;
+      letter-spacing: -0.01em;
     }
     .font-display {
-      font-family: 'Unbounded', sans-serif;
-      letter-spacing: -0.03em;
+      font-family: 'Syne', 'Space Grotesk', sans-serif;
+      letter-spacing: -0.035em;
       line-height: 1.06;
     }
     .font-sans {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Manrope', sans-serif;
     }
     .font-mono {
-      font-family: 'Space Mono', monospace;
+      font-family: 'JetBrains Mono', 'Space Mono', monospace;
+      letter-spacing: -0.02em;
     }
     .grid-bg {
       background-size: 40px 40px;
@@ -271,6 +273,9 @@
       </button>
       <button onclick="switchTab('raredash')" id="tab-raredash" class="px-3.5 py-2 rounded-xl text-xs font-mono font-semibold text-gray-400 hover:text-white transition whitespace-nowrap">
         06 // RareDash
+      </button>
+      <button onclick="switchTab('metacade')" id="tab-metacade" class="px-3.5 py-2 rounded-xl text-xs font-mono font-bold text-teal border border-teal/40 bg-teal/10 hover:bg-teal hover:text-void transition whitespace-nowrap">
+        07 // Case Study: Metacade ⚡
       </button>
     </div>
   </div>
@@ -939,6 +944,120 @@
       </div>
     </section>
 
+    <!-- ========================================================================= -->
+    <!-- 07. CASE STUDY: METACADE (AVARK SPECIFICATION DEMO) -->
+    <!-- ========================================================================= -->
+    <section id="view-metacade" class="hidden space-y-12">
+      <!-- Metacade Hero -->
+      <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal/10 border border-teal/30 text-teal font-mono text-xs">
+          <span class="h-1.5 w-1.5 rounded-full bg-teal animate-pulse"></span>
+          <span>AVARK CASE STUDY SPECIFICATION</span>
+          <span>•</span>
+          <span class="text-gray-300">METACADE ($MCADE)</span>
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+          Elevating the future of <span class="italic font-light gradient-text-wonderland">web3 gaming &amp; AI.</span>
+        </h1>
+
+        <p class="text-gray-300 text-lg sm:text-xl font-sans leading-relaxed max-w-3xl">
+          How we engineered an interactive 3D digital ecosystem for Metacade—connecting players, tournaments, autonomous AI NPCs, and 3D tokenomics into a single high-performance Web3 gaming hub.
+        </p>
+
+        <!-- Project Metadata Strip -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 rounded-2xl border border-white/10 bg-panel font-mono text-xs">
+          <div>
+            <span class="text-gray-500 block text-[11px]">CLIENT</span>
+            <span class="text-white font-bold text-sm">Metacade</span>
+          </div>
+          <div>
+            <span class="text-gray-500 block text-[11px]">DELIVERABLES</span>
+            <span class="text-teal font-bold text-sm">Design, 3D Web &amp; AI Infra</span>
+          </div>
+          <div>
+            <span class="text-gray-500 block text-[11px]">TIMELINE</span>
+            <span class="text-white font-bold text-sm">8-Wk Sprint + 2-Yr Partner</span>
+          </div>
+          <div>
+            <span class="text-gray-500 block text-[11px]">NETWORKS</span>
+            <span class="text-teal font-bold text-sm">Base, BSC (56) &amp; opBNB</span>
+          </div>
+        </div>
+
+        <!-- Avark Service Capability Pills -->
+        <div class="flex flex-wrap gap-2 pt-1">
+          <span class="service-pill"># Branding &amp; Visual Identity</span>
+          <span class="service-pill"># Interactive 3D City (Metacadia)</span>
+          <span class="service-pill"># Web3 Product Design</span>
+          <span class="service-pill"># AI Agent &amp; NPC Integration</span>
+          <span class="service-pill"># Mascot Max Endless Runner</span>
+          <span class="service-pill"># EIP-712 Intent Engine</span>
+          <span class="service-pill"># Ponder v0.7 Real-Time Indexer</span>
+        </div>
+      </div>
+
+      <!-- City of Metacadia 4 Quarters Interactive Demo -->
+      <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-panel via-obsidian to-void p-8 sm:p-12 relative overflow-hidden cyber-card space-y-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+          <div>
+            <span class="font-mono text-xs text-teal uppercase tracking-wider">CHAPTER 01 // 3D CONCEPT</span>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">The City of Metacadia</h2>
+          </div>
+          <span class="font-mono text-xs text-gray-400">Interactive Quarters Navigation</span>
+        </div>
+
+        <p class="text-sm text-gray-300 font-sans leading-relaxed max-w-4xl">
+          Inspired by their flagship game &quot;Gangs Of Metacadia,&quot; we engineered an interactive 3D virtual city allowing users to explore the four key areas of the ecosystem.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-6 rounded-2xl bg-void border border-teal/40 space-y-3">
+            <span class="font-mono text-xs text-teal font-bold block">QUARTER 01 // ARCADE</span>
+            <h3 class="font-display text-lg font-bold text-white">Arcade Quarter</h3>
+            <p class="text-xs text-gray-300 font-sans leading-relaxed">Casual titles, Jetpack Max runner, and instant crystal XP reward sync.</p>
+            <div class="text-[11px] font-mono text-teal">✓ 1.2M+ Sessions</div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-void border border-violet/40 space-y-3">
+            <span class="font-mono text-xs text-violet font-bold block">QUARTER 02 // AI AGENTS</span>
+            <h3 class="font-display text-lg font-bold text-white">AI Agents Quarter</h3>
+            <p class="text-xs text-gray-300 font-sans leading-relaxed">Autonomous NPCs with pgvector RAG memory and EIP-712 verified quest intents.</p>
+            <div class="text-[11px] font-mono text-violet">✓ 150k+ Daily Intents</div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-void border border-amber/40 space-y-3">
+            <span class="font-mono text-xs text-amber font-bold block">QUARTER 03 // TOURNAMENTS</span>
+            <h3 class="font-display text-lg font-bold text-white">Tournament Arena</h3>
+            <p class="text-xs text-gray-300 font-sans leading-relaxed">High-stakes brackets with automated multisig prize escrow and 450ms finality.</p>
+            <div class="text-[11px] font-mono text-amber">✓ $8.4M+ Disbursed</div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-void border border-blue/40 space-y-3">
+            <span class="font-mono text-xs text-blue font-bold block">QUARTER 04 // INVESTOR</span>
+            <h3 class="font-display text-lg font-bold text-white">Investor Quarter</h3>
+            <p class="text-xs text-gray-300 font-sans leading-relaxed">3D token staking, timestamp invariant vesting, and real-time revenue share.</p>
+            <div class="text-[11px] font-mono text-blue">✓ $32.1M TVL Staked</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verbatim Client Testimonial -->
+      <div class="rounded-3xl border border-teal/30 bg-panel p-8 sm:p-12 relative overflow-hidden space-y-6">
+        <span class="font-mono text-xs text-teal uppercase tracking-wider block">EXECUTIVE TESTIMONIAL // RUSSELL BENNETT (CEO, METACADE)</span>
+        <blockquote class="font-display text-xl sm:text-2xl font-medium text-white leading-relaxed">
+          &quot;Working with our studio was a game-changer for Metacade. As our vision to build the best gaming platform took shape, they stepped in with <span class="text-teal font-bold underline decoration-teal/50 decoration-2 underline-offset-4">unparalleled expertise in web3 design and branding</span>. They didn’t just deliver a stunning visual identity — they created a seamless, intuitive user experience that perfectly captured our mission to connect gaming communities in a decentralized world.&quot;
+        </blockquote>
+        <div class="flex items-center gap-4">
+          <div class="h-12 w-12 rounded-full bg-teal/20 border border-teal flex items-center justify-center font-display font-bold text-teal text-lg">R</div>
+          <div>
+            <div class="font-display font-bold text-white">Russell Bennett</div>
+            <div class="font-mono text-xs text-gray-400">CEO &amp; Co-Founder, Metacade ($MCADE)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- FOOTER -->
@@ -950,7 +1069,7 @@
   </footer>
 
   <script>
-    const tabs = ['studio', 'raremint', 'raretoken', 'rarechars', 'rarepay', 'rareagent', 'raredash'];
+    const tabs = ['studio', 'raremint', 'raretoken', 'rarechars', 'rarepay', 'rareagent', 'raredash', 'metacade'];
     let currentTab = 'studio';
     let mintMode = 'allowlist';
     let mintedTotal = 421;

@@ -18,14 +18,21 @@ build/
 # Secrets & Keys (NEVER COMMIT)
 .env
 .env.*
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 !.env.example
 *.pem
 *.key
 *.keystore
 **/keystore/**
 mnemonic.txt
+*.credentials
 
-# Logs & OS
+# Internal agent workspaces
+.agents/
 *.log
 npm-debug.log*
 pnpm-debug.log*

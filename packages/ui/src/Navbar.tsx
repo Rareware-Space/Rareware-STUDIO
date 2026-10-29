@@ -55,8 +55,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="relative inline-flex rounded-full h-2 w-2 bg-teal"></span>
             </span>
             <span className="text-gray-300">
-              NETWORK: <span className="text-teal font-semibold">BSC MAINNET (56)</span> • FINALITY:{' '}
-              <span className="text-white">450ms</span> • opBNB:{' '}
+              NETWORK: <span className="text-teal font-semibold">BSC MAINNET (56)</span> • BLOCK TIME:{' '}
+              <span className="text-white">450ms (FERMI)</span> • opBNB:{' '}
               <span className="text-emerald font-semibold">LIVE (204)</span>
             </span>
           </div>
@@ -168,6 +168,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="h-1.5 w-1.5 rounded-full bg-lime" />
             RareDash
           </a>
+          <a
+            href="/case-studies/metacade"
+            className="flex items-center gap-1.5 rounded-full px-3 py-1.5 transition text-teal hover:text-void hover:bg-teal border border-teal/30 font-bold"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-teal animate-pulse" />
+            Case Studies
+          </a>
         </nav>
 
         {/* Right Action Bar */}
@@ -254,6 +261,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="font-semibold">{prod.name}</span>
               </a>
             ))}
+            <a
+              href="/case-studies/metacade"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2.5 rounded-lg border border-teal/40 bg-teal/10 flex items-center gap-2 text-teal col-span-2 font-bold"
+            >
+              <span className="h-2 w-2 rounded-full bg-teal animate-pulse" />
+              <span>Featured Case Study: Metacade →</span>
+            </a>
           </div>
 
           <div className="pt-2 border-t border-white/10 flex items-center justify-between">

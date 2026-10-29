@@ -68,9 +68,9 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Unbounded', 'sans-serif'],
-        sans: ['DM Sans', 'sans-serif'],
-        mono: ['Space Mono', 'monospace'],
+        display: ['Syne', 'Space Grotesk', 'sans-serif'],
+        sans: ['Manrope', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Space Mono', 'monospace'],
       },
       letterSpacing: {
         display: '-0.03em',

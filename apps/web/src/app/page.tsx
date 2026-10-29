@@ -2,620 +2,892 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
-  Navbar,
-  Footer,
-  Badge,
-  TiltCard,
+  Reveal,
+  SplitLines,
+  ScrollWords,
+  StickyStackCard,
+  Marquee,
+  MagneticButton,
+  CopyButton,
   IntakeWizardModal,
-  CurrencyMode,
-  formatPrice,
 } from '@rareware/ui';
-import { HeroParticleCanvas } from '../components/HeroParticleCanvas';
-import { LiveProtocolTerminal } from '../components/LiveProtocolTerminal';
-import { ProjectCostEstimator } from '../components/ProjectCostEstimator';
+import { StudioHeader } from '../components/StudioHeader';
+import { ScrollProgressBar } from '../components/ScrollProgressBar';
 
 export default function StudioHomePage() {
-  const [currencyMode, setCurrencyMode] = useState<CurrencyMode>('USD');
   const [intakeOpen, setIntakeOpen] = useState(false);
-  const [walletConnected, setWalletConnected] = useState(false);
-  const [faqOpen, setFaqOpen] = useState<number | null>(null);
+  const [activeService, setActiveService] = useState<number | null>(null);
 
-  const services = [
+  const selectedBuilds = [
     {
-      title: 'Token Launch Kit',
-      scope: 'ERC-20, Cliff/Linear Vesting, Timestamp Staking, Tests & Safe Handover',
-      timeline: '1–2 Weeks',
-      baseUsd: 3000,
-      rangeUsd: '$2,000 – $6,000',
-      badge: 'TOKENOMICS',
-      accent: 'amber',
-    },
-    {
-      title: 'NFT Collection + Mint Site',
-      scope: 'ERC-721/1155, Merkle Allowlist, Commit-Reveal, Cinematic GSAP Mint Terminal',
-      timeline: '1–3 Weeks',
-      baseUsd: 2500,
-      rangeUsd: '$1,500 – $5,000',
-      badge: 'CINEMA MINT',
+      num: '/01',
+      badge: 'INTERNAL BUILD',
+      title: 'RareMint Demo',
+      subtitle: 'Zero-Gas-War NFT Collection Suite & Merkle Allowlist',
+      desc: 'Gas-optimized ERC-721A batch minting architecture with cryptographic Merkle proof verification, delayed commit-reveal metadata cryptography, and EIP-2981 Safe royalties.',
+      outcome: '100% Deterministic • 0 Invariant Regressions',
+      tags: ['ERC-721A', 'Merkle Tree', 'Commit-Reveal', 'Safe Royalties', '1k Fuzz Runs'],
+      href: '/raremint',
       accent: 'teal',
+      bgGradient: 'from-teal/10 via-obsidian to-void',
+      hasImage: true,
+      imageSrc: '/media/raremint-vault-3d.jpg',
+      imageCaption: 'RareMint • Commit-Reveal Vault',
+      imageBadge: 'ERC-721A Batch',
     },
     {
-      title: 'AI x Chain Integration',
-      scope: 'Persistent AI Agent or NPC with EIP-712 Signed On-Chain Actions & RAG Memory',
-      timeline: '3–6 Weeks',
-      baseUsd: 7500,
-      rangeUsd: '$5,000 – $15,000',
-      badge: 'AI INFRA',
+      num: '/02',
+      badge: 'INTERNAL BUILD',
+      title: 'RareChars Demo',
+      subtitle: 'Persistent AI Game NPCs & Cryptographic Intents',
+      desc: 'Autonomous NPC agent runtime with pgvector RAG memory. Characters reason off-chain and propose EIP-712 signed action intents verified directly on-chain by RareCharsVerifier.sol on opBNB.',
+      outcome: 'Sub-Second Intents • Zero Private Key Exposure',
+      tags: ['ReadyPI Gateway', 'pgvector RAG', 'EIP-712 Intent', 'Zero-Key Security', 'opBNB'],
+      href: '/rarechars',
       accent: 'violet',
+      bgGradient: 'from-violet/10 via-obsidian to-void',
+      hasImage: true,
+      imageSrc: '/media/character-npc-cipher-3d.jpg',
+      imageCaption: 'Cipher • 3D AI Netrunner NPC',
+      imageBadge: 'EIP-712 Intent Visor',
     },
     {
-      title: 'dApp / Marketplace Suite',
-      scope: 'Custom Solidity Contracts, Ponder Indexer, Sub-Second Next.js Frontend',
-      timeline: '4–8 Weeks',
-      baseUsd: 12000,
-      rangeUsd: '$8,000 – $25,000',
-      badge: 'FULL STACK',
+      num: '/03',
+      badge: 'INTERNAL BUILD',
+      title: 'RarePay Demo',
+      subtitle: 'Non-Custodial Crypto Checkout & Dynamic Normalization',
+      desc: 'Multi-token payment router on BSC & opBNB accepting USDT, USDC, and BNB with dynamic 18-decimal token normalization and signed HMAC merchant webhooks.',
+      outcome: 'Direct Safe Handover • Zero Custodial Risk',
+      tags: ['Non-Custodial', '18-Dec Safety', 'Dynamic Decimals', 'HMAC Webhooks', 'BSC & opBNB'],
+      href: '/rarepay',
       accent: 'blue',
+      bgGradient: 'from-blue/10 via-obsidian to-void',
+      hasImage: true,
+      imageSrc: '/media/rarepay-terminal-3d.jpg',
+      imageCaption: 'RarePay • Liquid-Glass POS Terminal',
+      imageBadge: '18-Dec USDT/USDC/BNB',
     },
     {
-      title: 'Pre-Audit Hardening',
-      scope: 'Slither/Aderyn Static Analysis, 1,000-Run Fuzz + Invariant Verification & Fixes',
-      timeline: '1 Week',
-      baseUsd: 1500,
-      rangeUsd: '$1,000 – $3,000',
-      badge: 'SECURITY',
-      accent: 'orange',
-    },
-    {
-      title: 'Studio Engineering Retainer',
-      scope: 'Dedicated Monorepo Upgrades, Ponder Node Monitoring & Priority Advisory',
-      timeline: 'Monthly',
-      baseUsd: 1000,
-      rangeUsd: '$500 – $1,500 / mo',
-      badge: 'RETAINER',
-      accent: 'lime',
+      num: '/04',
+      badge: 'FEATURED CASE STUDY',
+      title: 'Metacade Showcase',
+      subtitle: 'Cyberpunk Web3 Arcade, 3D WebGL City & AI Economy',
+      desc: 'Flagship interactive case study featuring real-time 3D WebGL city shaders, autonomous quest execution with EIP-712 typed data, and sub-second on-chain game telemetry.',
+      outcome: 'Interactive Live Shader • 450ms Block Time',
+      tags: ['3D WebGL Shader', 'Cyberpunk Metropolis', 'EIP-712 AI Intent', 'opBNB Fast Finality'],
+      href: '/case-studies/metacade',
+      accent: 'teal',
+      bgGradient: 'from-teal/15 via-obsidian to-void',
+      hasImage: true,
+      imageSrc: '/media/game-interface-metacade-hud.jpg',
+      imageCaption: 'Metacade AAA Combat HUD',
+      imageBadge: 'opBNB 450ms Ping',
     },
   ];
 
-  const faqs = [
+  const services = [
     {
-      q: 'Why build for BSC (56) and opBNB (204) first?',
-      a: 'Following the 2025–2026 hardforks (Maxwell/Pascal), BSC block time dropped to 450ms with sub-second finality. However, 90% of contract shops still write contracts with block.number assumptions and hardcode 6-decimal assumptions that break on BSC USDT/USDC (18 decimals). We build chain-native, timestamp-invariant contracts optimized for this new high-throughput landscape.',
+      index: '/01',
+      title: 'Token Launch Kit',
+      scope: 'ERC-20, Cliff/Linear Vesting, Timestamp Staking, Tests & Safe Handover',
+      fromPrice: 'from $3,000',
+      timeline: '1–2 Weeks',
+      tags: ['Solidity 0.8.28', 'Timestamp Vesting', 'Synthetix APY', 'Foundry 1k Fuzz', 'Safe Multisig'],
     },
     {
-      q: 'How does Rareware ensure zero-custody safety for client funds?',
-      a: 'Rareware operates strictly as a non-custodial software engineering studio. All deployed contracts, admin keys, and treasury vaults transfer directly to your team’s Gnosis Safe multisig with an optional timelock. Rareware never holds client private keys or custodial fund pools.',
+      index: '/02',
+      title: 'NFT Collection + Mint Site',
+      scope: 'ERC-721A, Merkle Allowlist, Commit-Reveal, Minting DApp, Royalties & Art Pipeline',
+      fromPrice: 'from $4,000',
+      timeline: '2–3 Weeks',
+      tags: ['ERC-721A Batch', 'Merkle Proofs', 'Safe Royalties', 'Cinematic DApp', 'EVM Invariants'],
     },
     {
-      q: 'What is the "Zero-Key" AI Safety architecture in RareChars?',
-      a: 'The LLM (Claude API / ReadyPI) never touches private keys or broadcasts transactions. When an NPC decides to reward a player or unlock a quest item, it proposes an action to the backend API. The API validates daily quotas and issues a typed EIP-712 signed intent that the game contract (RareCharsVerifier.sol) cryptographically checks before executing.',
+      index: '/03',
+      title: 'Non-Custodial Payment Gateway',
+      scope: 'RarePay Router, 18-Decimal Normalization, HMAC Webhooks, Hosted Checkout & Docs',
+      fromPrice: 'from $5,000',
+      timeline: '2–3 Weeks',
+      tags: ['USDT / USDC / BNB', 'Non-Custodial', 'HMAC Webhooks', 'BSC 450ms', 'opBNB Native'],
     },
     {
-      q: 'Do you provide formal third-party audit reports?',
-      a: 'We provide rigorous Pre-Audit Hardening (1,000-run fuzzing, stateful invariants, and static analysis triage). However, per Hard Rule #2, we never claim an internal check replaces a formal independent security audit. For any contract holding user deposits, we facilitate and coordinate with top audit firms.',
+      index: '/04',
+      title: 'AI Game Character Runtime',
+      scope: 'Persistent NPC Agent, pgvector RAG Memory, ReadyPI Gateway, EIP-712 Verifier & DApp',
+      fromPrice: 'from $6,000',
+      timeline: '3–4 Weeks',
+      tags: ['Zero-Key Safety', 'EIP-712 Intents', 'pgvector Memory', 'opBNB Sub-Second', 'NPC Persona'],
     },
     {
-      q: 'How do project billing and milestone deliverables work?',
-      a: 'Client projects run on structured milestone escrows (typically 40% Kickoff & Architecture / 40% Verified Testnet Deployment & UI Demo / 20% Safe Multisig Mainnet Handover). You can pay in USD wire or directly on-chain in BNB / USDT.',
+      index: '/05',
+      title: 'Full-Stack Protocol & Frontend',
+      scope: 'Custom Architecture, Core Contracts, Ponder Indexer, Luxury Editorial Frontend, Safe Multisig',
+      fromPrice: 'from $12,000',
+      timeline: '4–6 Weeks',
+      tags: ['Complete Ecosystem', 'Ponder v0.7', 'Framer Motion', '16k Invariant Runs', 'Safe Handover'],
+    },
+  ];
+
+  const products = [
+    {
+      id: '01',
+      name: 'RareMint',
+      tagline: 'Zero-gas-war NFT collection kit with Merkle allowlists and delayed metadata reveal.',
+      status: 'Open-source core',
+      statusClass: 'text-teal border-teal/30 bg-teal/10',
+      contract: 'RareMint.sol',
+      href: '/raremint',
+      glow: 'hover:shadow-[0_0_35px_rgba(0,245,212,0.15)] hover:border-teal/50',
+      imageSrc: '/media/raremint-vault-3d.jpg',
     },
     {
-      q: 'Can our project integrate ReadyPI with RareChars?',
-      a: 'Yes! ReadyPI is our proprietary multi-model AI API gateway supporting 150+ LLMs with high throughput, low latency, and automatic fallbacks. RareChars uses ReadyPI as its primary inference backend to keep character dialogue margins predictable.',
+      id: '02',
+      name: 'RareToken',
+      tagline: 'Fixed-supply ERC-20 with timestamp cliff vesting and Synthetix-style staking.',
+      status: 'Open-source core',
+      statusClass: 'text-amber border-amber/30 bg-amber/10',
+      contract: 'RareToken.sol + Vesting',
+      href: '/raretoken',
+      glow: 'hover:shadow-[0_0_35px_rgba(245,158,11,0.15)] hover:border-amber/50',
+      imageSrc: '/media/raretoken-treasury-3d.jpg',
+    },
+    {
+      id: '03',
+      name: 'RareChars',
+      tagline: 'Persistent AI NPCs for Web3 games with pgvector RAG memory and verified EIP-712 intents.',
+      status: 'Preview',
+      statusClass: 'text-violet border-violet/30 bg-violet/10',
+      contract: 'RareCharsVerifier.sol',
+      href: '/rarechars',
+      glow: 'hover:shadow-[0_0_35px_rgba(139,92,246,0.15)] hover:border-violet/50',
+      imageSrc: '/media/character-npc-cipher-3d.jpg',
+    },
+    {
+      id: '04',
+      name: 'RarePay',
+      tagline: 'Non-custodial crypto checkout router on BSC & opBNB with dynamic 18-decimal token normalization.',
+      status: 'Preview',
+      statusClass: 'text-blue border-blue/30 bg-blue/10',
+      contract: 'RarePayRouter.sol',
+      href: '/rarepay',
+      glow: 'hover:shadow-[0_0_35px_rgba(59,130,246,0.15)] hover:border-blue/50',
+      imageSrc: '/media/rarepay-terminal-3d.jpg',
+    },
+    {
+      id: '05',
+      name: 'RareAgent',
+      tagline: 'Autonomous AI agent smart accounts with scoped session keys, daily spend caps, and kill-switches.',
+      status: 'Early access',
+      statusClass: 'text-orange border-orange/30 bg-orange/10',
+      contract: 'Session Key Module',
+      href: '/rareagent',
+      glow: 'hover:shadow-[0_0_35px_rgba(249,115,22,0.15)] hover:border-orange/50',
+      imageSrc: '/media/rareagent-enclave-3d.jpg',
+    },
+    {
+      id: '06',
+      name: 'RareDash',
+      tagline: 'Sub-second Ponder-indexed contract telemetry, whale alert webhooks, and live on-chain intelligence.',
+      status: 'Early access',
+      statusClass: 'text-lime border-lime/30 bg-lime/10',
+      contract: 'Ponder v0.7 Indexer',
+      href: '/raredash',
+      glow: 'hover:shadow-[0_0_35px_rgba(34,211,238,0.15)] hover:border-lime/50',
+      imageSrc: '/media/raredash-indexer-3d.jpg',
     },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col relative">
-      {/* Decorative Cyber HUD Corner Brackets */}
-      <div className="corner-tl" />
-      <div className="corner-tr" />
-      <div className="corner-bl" />
-      <div className="corner-br" />
+    <div className="min-h-screen bg-void text-gray-100 font-sans selection:bg-teal selection:text-void">
+      {/* Viewport Scroll Progress Bar */}
+      <ScrollProgressBar />
 
-      <Navbar
-        currentProduct="studio"
-        currencyMode={currencyMode}
-        onCurrencyChange={setCurrencyMode}
-        onOpenIntake={() => setIntakeOpen(true)}
-        walletConnected={walletConnected}
-        onToggleWallet={() => setWalletConnected(!walletConnected)}
-      />
+      {/* Editorial Fixed Header */}
+      <StudioHeader onOpenIntake={() => setIntakeOpen(true)} />
 
-      {/* HERO SECTION */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 w-full">
-        <section className="relative rounded-3xl border border-white/10 bg-gradient-to-b from-panel via-obsidian to-void p-8 sm:p-14 lg:p-16 overflow-hidden cyber-card">
-          {/* Real-Time Interactive Particle Network Background */}
-          <HeroParticleCanvas />
-
-          {/* Radial Ambient Glow */}
-          <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-teal/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] bg-violet/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-teal/10 border border-teal/30 text-teal font-mono text-xs">
-              <span className="h-2 w-2 rounded-full bg-teal animate-pulse" />
-              <span>LUMINA MONOLITH PRO MAX</span>
-              <span>•</span>
-              <span className="text-gray-300">BSC (56) &amp; opBNB (204) NATIVE</span>
+      {/* Main Content */}
+      <main className="relative pt-32 md:pt-40">
+        {/* ========================================================
+            1. HERO SECTION (Avark Architecture + SplitLines Reveal)
+           ======================================================== */}
+        <section className="relative px-6 md:px-12 lg:px-16 max-w-7xl mx-auto pb-24 md:pb-36">
+          <div className="space-y-8">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.16em] uppercase text-teal">
+              <span>/Rareware Studio</span>
+              <span className="text-gray-500">•</span>
+              <span className="text-gray-400">BSC 56 &amp; opBNB 204</span>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.08]">
-              WHERE CINEMATIC MOTION MEETS{' '}
-              <span className="text-teal">AUDITED WEB3 INFRASTRUCTURE</span>
+            {/* Large H1 Sentence Reveal */}
+            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-extrabold tracking-[-0.035em] text-white max-w-5xl">
+              <SplitLines
+                lines={[
+                  'Blockchain products and AI game characters,',
+                  'built with cinematic craft.',
+                ]}
+              />
             </h1>
 
-            <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
-              Rareware Studio ships production-grade blockchain products, persistent AI game characters, and cinema-grade Web3 frontends. Built with an AI-assisted, security-first pipeline—every state-changing function ships with fuzzing, invariants, and Safe multisig handovers.
+            {/* Short Supporting Paragraph */}
+            <Reveal delay={0.25} duration={0.8}>
+              <p className="max-w-2xl text-lg sm:text-xl text-gray-400 leading-relaxed font-light">
+                We engineer test-first smart contracts, non-custodial crypto checkout rails, and
+                autonomous game NPC runtimes on BSC and opBNB for founders who refuse boilerplate
+                templates.
+              </p>
+            </Reveal>
+
+            {/* Actions Row */}
+            <Reveal delay={0.35} duration={0.8}>
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <MagneticButton
+                  onClick={() => {
+                    const el = document.getElementById('builds');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="rounded-full bg-teal px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-void transition hover:bg-teal/90 shadow-[0_0_30px_rgba(0,245,212,0.35)]"
+                >
+                  Explore Selected Builds ↓
+                </MagneticButton>
+
+                <MagneticButton
+                  onClick={() => setIntakeOpen(true)}
+                  className="rounded-full border border-white/20 bg-white/[0.04] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-white/10 hover:border-white/40"
+                >
+                  Start your project
+                </MagneticButton>
+
+                <Link
+                  href="/case-studies/metacade"
+                  className="inline-flex items-center gap-2 text-xs font-mono text-teal hover:underline tracking-tight pl-2"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-teal" />
+                  </span>
+                  <span>Case Study: Metacade (Live 3D WebGL) →</span>
+                </Link>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Hero 3D Monolith Visual Container */}
+          <Reveal delay={0.45} duration={1.1} className="mt-14 sm:mt-20">
+            <div className="relative mx-auto aspect-[16/9] w-full max-w-6xl overflow-hidden rounded-2xl md:rounded-3xl border border-white/[0.12] bg-[#0A0C11] shadow-[0_32px_96px_rgba(0,0,0,0.85)] group">
+              <Image
+                src="/media/hero-monolith-3d.jpg"
+                alt="Rareware Studio 3D Monolith"
+                fill
+                priority
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+              />
+
+              {/* Ambient Radial Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-radial-vignette pointer-events-none" />
+
+              {/* Top-Left Telemetry Badge */}
+              <div className="absolute top-4 left-4 sm:top-6 sm:left-6 rounded-full border border-white/10 bg-void/80 px-3.5 py-1.5 backdrop-blur-md">
+                <div className="flex items-center gap-2 font-mono text-[11px] text-gray-300">
+                  <span className="h-1.5 w-1.5 rounded-full bg-teal animate-pulse" />
+                  <span>Solidity 0.8.28 • Foundry 1k Fuzz • Invariant Verified</span>
+                </div>
+              </div>
+
+              {/* Bottom-Right Intent Badge */}
+              <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 rounded-full border border-white/10 bg-void/80 px-3.5 py-1.5 backdrop-blur-md">
+                <div className="flex items-center gap-2 font-mono text-[11px] text-teal">
+                  <span>EIP-712 Intent Runtime • BSC 450ms • opBNB Native</span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+
+        {/* ========================================================
+            2. SELECTED BUILDS (Sticky Stacking Cards Feed)
+           ======================================================== */}
+        <section id="builds" className="relative px-6 md:px-12 lg:px-16 max-w-7xl mx-auto py-24 md:py-32">
+          {/* Eyebrow & Header */}
+          <div className="mb-16 space-y-4">
+            <div className="font-mono text-xs tracking-[0.16em] uppercase text-teal">
+              /Selected builds
+            </div>
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-3xl">
+              Internal production builds and flagship showcases.
+            </h2>
+            <p className="text-gray-400 max-w-xl text-base font-light">
+              Every architecture is engineered in-house, fuzz-tested, and verified with zero critical
+              invariants.
             </p>
+          </div>
 
-            <div className="flex flex-wrap items-center gap-4 pt-4">
-              <button
-                onClick={() => setIntakeOpen(true)}
-                className="px-7 py-3.5 rounded-xl bg-teal text-void font-display font-bold text-sm hover:opacity-95 transition glow-teal shadow-xl shadow-teal/20"
+          {/* Sticky Stacked Cards Sequence */}
+          <div className="relative space-y-8 pb-12">
+            {selectedBuilds.map((build, index) => (
+              <StickyStackCard
+                key={build.num}
+                index={index}
+                total={selectedBuilds.length}
+                topOffset={100}
+                className="w-full"
               >
-                Start Project Intake (/start) →
-              </button>
-              <Link
-                href="/raremint"
-                className="px-6 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-display font-medium text-sm hover:border-teal/50 hover:bg-white/10 transition"
-              >
-                Launch RareMint Demo
-              </Link>
-              <Link
-                href="/rarechars"
-                className="px-6 py-3.5 rounded-xl bg-violet/10 border border-violet/30 text-violet font-display font-medium text-sm hover:bg-violet/20 transition"
-              >
-                Test RareChars AI NPCs
-              </Link>
-            </div>
+                <div
+                  className={`relative overflow-hidden rounded-2xl md:rounded-3xl border border-white/[0.12] bg-[#0E1017] p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl ${
+                    build.accent === 'teal'
+                      ? 'hover:border-teal/40'
+                      : build.accent === 'violet'
+                      ? 'hover:border-violet/40'
+                      : 'hover:border-blue/40'
+                  } transition-colors duration-300`}
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    {/* Left Column: Build Specs */}
+                    <div className={build.hasImage ? 'lg:col-span-7 space-y-6' : 'lg:col-span-12 space-y-6'}>
+                      <div className="flex flex-wrap items-center justify-between gap-4">
+                        <div className="flex items-center gap-3">
+                          <span className="font-mono text-xs text-teal font-bold tracking-widest">
+                            {build.num}
+                          </span>
+                          <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-white/10 bg-white/[0.04] text-gray-300">
+                            {build.badge}
+                          </span>
+                        </div>
+                        <span className="text-xs font-mono text-teal">
+                          {build.outcome}
+                        </span>
+                      </div>
 
-            {/* Network Credibility Badges */}
-            <div className="flex flex-wrap items-center gap-2.5 pt-4">
-              <div className="network-pill">
-                <span>◈</span> BSC NATIVE (CHAIN 56 • 450ms)
-              </div>
-              <div className="network-pill">
-                <span>⚡</span> opBNB SUB-SECOND L2 (CHAIN 204)
-              </div>
-              <div className="network-pill">
-                <span className="text-violet-400">Ξ</span> EVM COMPATIBLE
-              </div>
-              <div className="network-pill">
-                <span className="text-amber-400">🔒</span> GNOSIS SAFE TIMELOCK
-              </div>
-            </div>
+                      <div className="space-y-2">
+                        <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                          {build.title}
+                        </h3>
+                        <p className="font-mono text-xs text-gray-400">
+                          {build.subtitle}
+                        </p>
+                      </div>
 
-            {/* Quick Live Telemetry Strip */}
-            <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-white/10 text-xs font-mono">
-              <div>
-                <span className="text-gray-500 block">BSC BLOCK TIME</span>
-                <span className="text-teal font-bold text-sm">450ms Fast Finality</span>
-              </div>
-              <div>
-                <span className="text-gray-500 block">SOLIDITY VERSION</span>
-                <span className="text-white font-bold text-sm">0.8.28 (Shanghai)</span>
-              </div>
-              <div>
-                <span className="text-gray-500 block">STABLECOIN SAFETY</span>
-                <span className="text-teal font-bold text-sm">18-Dec USDT/USDC</span>
-              </div>
-              <div>
-                <span className="text-gray-500 block">ADMIN GOVERNANCE</span>
-                <span className="text-white font-bold text-sm">Gnosis Safe + Timelock</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+                      <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-light max-w-2xl">
+                        {build.desc}
+                      </p>
 
-      {/* INFINITE LIVE TICKER MARQUEE STRIP */}
-      <div className="ticker-strip my-10">
-        <div className="ticker-track">
-          <div className="ticker-item"><span className="t-symbol">BNB/USDT</span> $648.32 <span className="t-up">+3.45%</span> <span className="t-tag">450ms BLOCK</span></div>
-          <div className="ticker-item"><span className="t-symbol">BTC/USDT</span> $104,890.15 <span className="t-up">+2.84%</span></div>
-          <div className="ticker-item"><span className="t-symbol">ETH/USDT</span> $3,450.40 <span className="t-up">+1.92%</span></div>
-          <div className="ticker-item"><span className="t-symbol">opBNB GAS</span> 0.000008 BNB <span className="t-up">&lt;$0.001/tx</span></div>
-          <div className="ticker-item"><span className="t-symbol">RARE/USDT</span> $4.85 <span className="t-up">+14.2%</span></div>
-          <div className="ticker-item"><span className="t-symbol">PONDER RPC</span> 99.98% SYNCED <span className="t-up">16.4ms LATENCY</span></div>
-          <div className="ticker-item"><span className="t-symbol">FOUNDRY SUITE</span> 17/17 PASSED <span className="t-up">16,384 INVARIANTS</span></div>
-          <div className="ticker-item"><span className="t-symbol">SAFE MULTISIG</span> $48.2M SECURED <span className="t-tag">2-OF-3 POLICY</span></div>
-          {/* Duplicate loop */}
-          <div className="ticker-item"><span className="t-symbol">BNB/USDT</span> $648.32 <span className="t-up">+3.45%</span> <span className="t-tag">450ms BLOCK</span></div>
-          <div className="ticker-item"><span className="t-symbol">BTC/USDT</span> $104,890.15 <span className="t-up">+2.84%</span></div>
-          <div className="ticker-item"><span className="t-symbol">ETH/USDT</span> $3,450.40 <span className="t-up">+1.92%</span></div>
-          <div className="ticker-item"><span className="t-symbol">opBNB GAS</span> 0.000008 BNB <span className="t-up">&lt;$0.001/tx</span></div>
-          <div className="ticker-item"><span className="t-symbol">RARE/USDT</span> $4.85 <span className="t-up">+14.2%</span></div>
-          <div className="ticker-item"><span className="t-symbol">PONDER RPC</span> 99.98% SYNCED <span className="t-up">16.4ms LATENCY</span></div>
-          <div className="ticker-item"><span className="t-symbol">FOUNDRY SUITE</span> 17/17 PASSED <span className="t-up">16,384 INVARIANTS</span></div>
-          <div className="ticker-item"><span className="t-symbol">SAFE MULTISIG</span> $48.2M SECURED <span className="t-tag">2-OF-3 POLICY</span></div>
-        </div>
-      </div>
+                      {/* Tag Chips */}
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {build.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 font-mono text-[11px] text-gray-300"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
 
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-24 w-full">
-        {/* LIVE PROTOCOL TELEMETRY & TERMINAL CHART */}
-        <section className="space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
-            <div>
-              <span className="font-mono text-xs text-teal tracking-wider uppercase">
-                00 // REAL-TIME NETWORK &amp; CONTRACT ACTIVITY
-              </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-                Live Protocol Telemetry Terminal
-              </h2>
-            </div>
-            <span className="font-mono text-xs text-emerald-400 flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-              CONNECTED: BSC MAINNET (56) &amp; opBNB (204)
-            </span>
-          </div>
+                      {/* Bottom Action Micro-interactions */}
+                      <div className="flex items-center gap-4 pt-4 border-t border-white/[0.08]">
+                        <Link
+                          href={build.href}
+                          className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-xs font-bold text-void uppercase tracking-wider hover:bg-teal transition"
+                        >
+                          <span>View build details</span>
+                          <span aria-hidden="true">→</span>
+                        </Link>
 
-          <LiveProtocolTerminal />
-        </section>
+                        <CopyButton
+                          textToCopy={`https://www.rarewarestudio.space${build.href}`}
+                          defaultLabel="Copy build link"
+                          copiedLabel="Copied link ✓"
+                          className="rounded-full border border-white/15 px-4 py-2 hover:bg-white/5 text-gray-300"
+                        />
+                      </div>
+                    </div>
 
-        {/* INTERACTIVE PROJECT ARCHITECTURE & GAS SAVINGS SANDBOX */}
-        <section className="space-y-4">
-          <ProjectCostEstimator onOpenIntake={() => setIntakeOpen(true)} />
-        </section>
-
-        {/* 4 CORE PILLARS */}
-        <section className="space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
-            <div>
-              <span className="font-mono text-xs text-teal tracking-wider uppercase">
-                01 // Architectural Foundations
-              </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-                The Four Studio Pillars
-              </h2>
-            </div>
-            <span className="font-mono text-xs text-gray-500">
-              Security Over Speed • Craft Over Clutter
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <TiltCard glowColor="rgba(0, 245, 212, 0.2)" className="p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <Badge variant="teal">PILLAR 01</Badge>
-                  <span className="font-mono text-xs text-gray-500">BSC 56 / opBNB</span>
+                    {/* Right Column: Visual Preview (for featured case study) */}
+                    {build.hasImage && build.imageSrc && (
+                      <div className="lg:col-span-5">
+                        <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-white/[0.15] bg-black shadow-inner group">
+                          <Image
+                            src={build.imageSrc}
+                            alt={build.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 400px"
+                            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                          <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-teal">
+                            <span>{build.imageCaption || 'Interactive Visual'}</span>
+                            <span className="text-gray-300 bg-white/10 px-2 py-0.5 rounded-full border border-white/10">{build.imageBadge || 'Live 3D'}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2">CHAIN-FIRST</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Engineered specifically for post-Maxwell 450ms BSC block times and opBNB sub-second transactions. Never uses block.number for time math; guarantees 18-decimal dynamic token normalization.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/5 font-mono text-[11px] text-teal">
-                ✓ Dynamic IERC20Metadata.decimals()
-              </div>
-            </TiltCard>
-
-            <TiltCard glowColor="rgba(139, 92, 246, 0.2)" className="p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <Badge variant="violet">PILLAR 02</Badge>
-                  <span className="font-mono text-xs text-gray-500">EIP-712</span>
-                </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2">AI-NATIVE</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Persistent AI game NPCs (RareChars) and guarded autonomous agents (RareAgent). Zero AI keys: models propose actions, and smart contracts cryptographically verify typed intents.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/5 font-mono text-[11px] text-violet">
-                ✓ Supabase pgvector + EIP-712 Verifier
-              </div>
-            </TiltCard>
-
-            <TiltCard glowColor="rgba(0, 245, 212, 0.2)" className="p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <Badge variant="teal">PILLAR 03</Badge>
-                  <span className="font-mono text-xs text-gray-500">Next.js + GSAP</span>
-                </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2">CINEMATIC FRONTENDS</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Most smart contract shops deliver ugly, templated UIs. Motion is our defensible moat: high-craft Next.js App Router, GSAP timelines, Framer Motion, and hardware-accelerated 3D viewports.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/5 font-mono text-[11px] text-teal">
-                ✓ 60fps Micro-interactions &amp; Tilt
-              </div>
-            </TiltCard>
-
-            <TiltCard glowColor="rgba(245, 158, 11, 0.2)" className="p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <Badge variant="amber">PILLAR 04</Badge>
-                  <span className="font-mono text-xs text-gray-500">Foundry Suite</span>
-                </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2">SECURITY-FIRST</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  Every state-changing function undergoes test-first Foundry validation, 1,000-run property fuzzing, stateful invariant testing, and Slither/Aderyn static analysis before testnet deployment.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/5 font-mono text-[11px] text-amber">
-                ✓ 256 Invariant Runs • Safe Handover
-              </div>
-            </TiltCard>
+              </StickyStackCard>
+            ))}
           </div>
         </section>
 
-        {/* 6 STANDALONE PRODUCT PORTALS */}
-        <section className="space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
-            <div>
-              <span className="font-mono text-xs text-teal tracking-wider uppercase">
-                02 // Productized Developer Kits &amp; SaaS
-              </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-                Six Standalone Products
-              </h2>
+        {/* ========================================================
+            3. PROOF & MANIFESTO STATEMENT (ScrollWords & Disciplines)
+           ======================================================== */}
+        <section className="relative px-6 md:px-12 lg:px-16 max-w-7xl mx-auto py-24 border-t border-white/[0.06]">
+          {/* Truthful Metric Bar */}
+          <Reveal>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-b border-white/[0.08] font-mono text-center">
+              <div className="space-y-1">
+                <div className="text-3xl sm:text-4xl font-extrabold text-white">7</div>
+                <div className="text-xs text-gray-400 uppercase tracking-widest">
+                  Production Architectures
+                </div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-3xl sm:text-4xl font-extrabold text-teal">6</div>
+                <div className="text-xs text-gray-400 uppercase tracking-widest">
+                  Verified Contracts
+                </div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-3xl sm:text-4xl font-extrabold text-white">1,000+</div>
+                <div className="text-xs text-gray-400 uppercase tracking-widest">
+                  Invariant Fuzz Runs
+                </div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-3xl sm:text-4xl font-extrabold text-emerald">0</div>
+                <div className="text-xs text-gray-400 uppercase tracking-widest">
+                  Security Regressions
+                </div>
+              </div>
             </div>
-            <span className="font-mono text-xs text-gray-400">
-              Open-Source Cores &amp; Managed Turnkey Infrastructure
-            </span>
+          </Reveal>
+
+          {/* Large Manifesto Statement */}
+          <div className="py-20 md:py-28 max-w-5xl">
+            <div className="font-mono text-xs tracking-[0.16em] uppercase text-teal mb-6">
+              /The Rareware Standard
+            </div>
+            <ScrollWords
+              text="We do not ship code we would not stake our own treasury on. Every state-changing function undergoes test-first Foundry validation, property fuzzing, and invariant verification before deployment."
+              className="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.18] text-white"
+            />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* RareMint */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareMint</span>
-                  <Badge variant="teal">OPEN-SOURCE CORE</Badge>
-                </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Zero-gas-war NFT collection kit with Merkle allowlists, delayed reveal choreography, and EIP-2981 Safe royalties.
-                </p>
+          {/* Three Studio Disciplines */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8">
+            <div className="border-t border-white/[0.12] pt-6 space-y-3">
+              <div className="font-mono text-xs text-teal font-bold uppercase tracking-wider">
+                /01 Security First
               </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">RareMint.sol</span>
-                <Link href="/raremint" className="text-teal hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
+              <h4 className="font-display text-lg font-bold text-white">
+                Fuzz Testing &amp; Invariants
+              </h4>
+              <p className="text-sm text-gray-400 leading-relaxed font-light">
+                Property fuzzing, stateful invariants, and static analysis with Slither and Aderyn. We
+                verify contract boundary conditions before touching mainnet.
+              </p>
             </div>
 
-            {/* RareToken */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareToken</span>
-                  <Badge variant="amber">OPEN-SOURCE CORE</Badge>
-                </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Fixed-supply ERC-20 with timestamp-based cliff/linear vesting and Synthetix-style APY staking safe from BSC block drift.
-                </p>
+            <div className="border-t border-white/[0.12] pt-6 space-y-3">
+              <div className="font-mono text-xs text-violet font-bold uppercase tracking-wider">
+                /02 AI Native
               </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">RareToken.sol + Vesting</span>
-                <Link href="/raretoken" className="text-amber hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
+              <h4 className="font-display text-lg font-bold text-white">
+                Zero-Key Cryptographic Safety
+              </h4>
+              <p className="text-sm text-gray-400 leading-relaxed font-light">
+                Autonomous agents propose actions to backend signers; smart contracts verify via
+                EIP-712 typed data. Private keys never touch client or agent runtimes.
+              </p>
             </div>
 
-            {/* RareChars */}
-            <div className="rounded-2xl border border-violet/30 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareChars</span>
-                  <Badge variant="violet">FLAGSHIP API + SDK</Badge>
-                </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Persistent AI NPCs for Web3 games with pgvector RAG memory and cryptographically verified on-chain action intents on opBNB.
-                </p>
+            <div className="border-t border-white/[0.12] pt-6 space-y-3">
+              <div className="font-mono text-xs text-amber font-bold uppercase tracking-wider">
+                /03 Cinematic Frontends
               </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">RareCharsVerifier.sol</span>
-                <Link href="/rarechars" className="text-violet hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
-            </div>
-
-            {/* RarePay */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RarePay</span>
-                  <Badge variant="blue">NON-CUSTODIAL SAAS</Badge>
-                </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Crypto checkout on BSC &amp; opBNB (USDT/USDC/BNB) with on-chain 18-decimal validation and signed HMAC webhooks.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">RarePayRouter.sol</span>
-                <Link href="/rarepay" className="text-blue hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
-            </div>
-
-            {/* RareAgent */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareAgent</span>
-                  <Badge variant="orange">ERC-4337 ACCOUNT</Badge>
-                </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Autonomous AI agent smart accounts with scoped session keys, contract allowlists, daily spend caps, and kill-switches.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">Session Key Module</span>
-                <Link href="/rareagent" className="text-orange hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
-            </div>
-
-            {/* RareDash */}
-            <div className="rounded-2xl border border-white/10 bg-panel p-6 cyber-card flex flex-col justify-between space-y-4">
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-xl font-bold text-white">RareDash</span>
-                  <Badge variant="lime">ANALYTICS SAAS</Badge>
-                </div>
-                <p className="text-sm text-gray-400 mt-2 leading-relaxed">
-                  Sub-second Ponder-indexed contract telemetry, whale alert webhooks, and live on-chain holder intelligence.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                <span className="text-gray-500">Ponder v0.7 Indexer</span>
-                <Link href="/raredash" className="text-lime hover:underline font-semibold">
-                  Open Product Page →
-                </Link>
-              </div>
+              <h4 className="font-display text-lg font-bold text-white">
+                Hardware-Accelerated Motion
+              </h4>
+              <p className="text-sm text-gray-400 leading-relaxed font-light">
+                60fps interaction polish, WebGL shaders, and editorial typography. We build luxury Web3
+                interfaces that command attention and drive conversion.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* B2B SERVICES & PRICING TABLE (WITH CURRENCY TOGGLE) */}
-        <section className="space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
-            <div>
-              <span className="font-mono text-xs text-teal tracking-wider uppercase">
-                03 // Delivery Pipeline &amp; Milestone Pricing
-              </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-                B2B Engineering Services
-              </h2>
+        {/* ========================================================
+            4. DEVELOPER ECOSYSTEM (Dual-Track Infinite Marquee)
+           ======================================================== */}
+        <section className="py-20 border-t border-white/[0.06] bg-obsidian/40 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 mb-8">
+            <div className="font-mono text-xs tracking-[0.16em] uppercase text-teal mb-2">
+              /Built with
             </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-gray-400">CURRENCY:</span>
-              <div className="font-mono text-xs px-3 py-1.5 rounded-lg border border-teal/30 bg-teal/10 text-teal">
-                {currencyMode === 'USD' ? 'USD FIAT ESCROW' : 'ON-CHAIN BNB/USDT (BSC)'}
-              </div>
-            </div>
+            <p className="text-sm text-gray-400 font-mono">
+              Developer tools, protocols, and verified infrastructure we build with.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((item) => {
-              const priceData = formatPrice(item.baseUsd, currencyMode);
+          <div className="space-y-4">
+            <Marquee direction="left" speedSeconds={30}>
+              {[
+                'BNB Chain (BSC 56)',
+                'opBNB Sub-Second (204)',
+                'Foundry Fuzz Testing',
+                'OpenZeppelin Contracts',
+                'Safe Multisig Vaults',
+                'Solidity 0.8.28',
+                'Slither Static Analysis',
+                'Aderyn Analysis',
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-3 rounded-full border border-white/[0.08] bg-[#0E1119] px-5 py-2.5 font-mono text-xs text-gray-300"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-teal" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </Marquee>
+
+            <Marquee direction="right" speedSeconds={34}>
+              {[
+                'Next.js 14 App Router',
+                'Framer Motion Kinetics',
+                'Tailwind CSS',
+                'Supabase & PostgreSQL',
+                'Ponder v0.7 Indexer',
+                'Vercel Edge Network',
+                'pgvector RAG Embeddings',
+                'EIP-712 Typed Signatures',
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-3 rounded-full border border-white/[0.08] bg-[#0E1119] px-5 py-2.5 font-mono text-xs text-gray-300"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-violet" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </Marquee>
+          </div>
+        </section>
+
+        {/* ========================================================
+            5. SERVICES SECTION (Avark Numbered Rows + Indicative Pricing)
+           ======================================================== */}
+        <section id="services" className="relative px-6 md:px-12 lg:px-16 max-w-7xl mx-auto py-24 md:py-32 border-t border-white/[0.06]">
+          <div className="mb-16 space-y-4">
+            <div className="font-mono text-xs tracking-[0.16em] uppercase text-teal">
+              /How we help
+            </div>
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-2xl">
+              Fixed-scope engineering engagements delivered with deterministic precision.
+            </h2>
+            <p className="text-gray-400 max-w-xl text-base font-light">
+              Every client project receives dedicated senior engineering, test suites, and Gnosis
+              Safe ownership handover.
+            </p>
+          </div>
+
+          {/* Numbered Service Rows */}
+          <div className="border-t border-white/[0.12] divide-y divide-white/[0.08]">
+            {services.map((svc, idx) => {
+              const isHovered = activeService === idx;
               return (
                 <div
-                  key={item.title}
-                  className="rounded-2xl border border-white/10 bg-panel p-6 flex flex-col justify-between space-y-6 cyber-card"
+                  key={svc.index}
+                  onMouseEnter={() => setActiveService(idx)}
+                  onMouseLeave={() => setActiveService(null)}
+                  className={`group py-8 md:py-10 transition-colors duration-300 ${
+                    isHovered ? 'bg-white/[0.03]' : 'hover:bg-white/[0.02]'
+                  } cursor-pointer`}
+                  onClick={() => setIntakeOpen(true)}
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs text-teal">{item.timeline}</span>
-                      <Badge variant={item.accent as any}>{item.badge}</Badge>
-                    </div>
-                    <h3 className="font-display text-xl font-bold text-white">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-gray-400 leading-relaxed min-h-[40px]">
-                      {item.scope}
-                    </p>
-                  </div>
-
-                  <div className="space-y-4 pt-4 border-t border-white/5">
-                    <div>
-                      <div className="text-xs font-mono text-gray-500">INDICATIVE RATE</div>
-                      <div className="font-display text-xl font-bold text-white mt-0.5">
-                        {currencyMode === 'USD' ? item.rangeUsd : priceData.display}
-                      </div>
-                      <div className="text-[11px] font-mono text-teal mt-0.5">
-                        {priceData.subtext}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    {/* Index & Title */}
+                    <div className="lg:col-span-6 flex items-start gap-4">
+                      <span className="font-mono text-xs text-teal font-bold pt-1">
+                        {svc.index}
+                      </span>
+                      <div className="space-y-1 transition-transform duration-300 ease-out group-hover:translate-x-4">
+                        <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-teal transition">
+                          {svc.title}
+                        </h3>
+                        <p className="text-sm text-gray-400 font-light leading-relaxed">
+                          {svc.scope}
+                        </p>
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => setIntakeOpen(true)}
-                      className="w-full py-2.5 rounded-xl border border-white/15 bg-white/5 text-white font-mono text-xs hover:border-teal hover:bg-teal hover:text-void font-bold transition"
-                    >
-                      Book Service Intake →
-                    </button>
+                    {/* Timeline & Tags */}
+                    <div className="lg:col-span-4 flex flex-wrap gap-2">
+                      {svc.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="rounded-full border border-white/[0.06] bg-white/[0.02] px-2.5 py-0.5 font-mono text-[10px] text-gray-400"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Indicative Pricing & Arrow */}
+                    <div className="lg:col-span-2 flex items-center justify-between lg:justify-end gap-4">
+                      <div className="text-right">
+                        <span className="block font-mono text-xs font-semibold text-teal">
+                          {svc.fromPrice}
+                        </span>
+                        <span className="text-[10px] font-mono text-gray-500">
+                          {svc.timeline}
+                        </span>
+                      </div>
+                      <div className="rounded-full border border-white/10 p-2 text-gray-400 group-hover:border-teal group-hover:text-teal transition-transform duration-300 group-hover:translate-x-1">
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
+
+          <p className="mt-8 text-xs font-mono text-gray-500">
+            * Indicative pricing ranges based on standard specifications. Every client engagement
+            receives a deterministic, fixed-price milestone scope.
+          </p>
         </section>
 
-        {/* FOUNDER & NON-CUSTODIAL INTEGRITY */}
-        <section className="rounded-3xl border border-white/10 bg-panel p-8 sm:p-12 relative overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 space-y-4">
-              <span className="font-mono text-xs text-teal uppercase tracking-wider">
-                04 // Technical Leadership &amp; Operational Firewall
-              </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
-                Engineered by Ahmed Riyaz (ARZ) &amp; Powered by ReadyPI
-              </h2>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                Rareware Studio is led by Ahmed Riyaz (ARZ), an experienced engineering lead operating across blockchain and AI automation. Rareware’s flagship AI product, RareChars, leverages our proprietary ReadyPI multi-model API gateway (150+ models) to deliver persistent game NPC intelligence with zero gas drift and predictable token economics.
-              </p>
-              <div className="pt-2 flex flex-wrap gap-4 font-mono text-xs text-gray-300">
-                <span className="px-3 py-1.5 rounded-lg bg-void border border-white/10">
-                  Non-Custodial Architecture
-                </span>
-                <span className="px-3 py-1.5 rounded-lg bg-void border border-white/10">
-                  ReadyPI LLM Gateway
-                </span>
-                <span className="px-3 py-1.5 rounded-lg bg-void border border-white/10">
-                  github.com/Rareware-Space
-                </span>
-              </div>
+        {/* ========================================================
+            6. PRODUCTS SUITE (3x2 Editorial Grid)
+           ======================================================== */}
+        <section id="products" className="relative px-6 md:px-12 lg:px-16 max-w-7xl mx-auto py-24 md:py-32 border-t border-white/[0.06]">
+          <div className="mb-16 space-y-4">
+            <div className="font-mono text-xs tracking-[0.16em] uppercase text-teal">
+              /Products
             </div>
-            <div className="lg:col-span-4 rounded-2xl bg-void border border-white/10 p-6 font-mono text-xs space-y-3">
-              <div className="text-teal font-bold">// Studio Non-Custody Protocol:</div>
-              <div className="text-gray-400">1. All treasury contracts deploy with Safe owners</div>
-              <div className="text-gray-400">2. Pre-flight eth_call simulations before every deploy</div>
-              <div className="text-gray-400">3. Zero human private keys stored on AI servers</div>
-              <div className="text-gray-400">4. Direct milestone escrows in BNB or USDT</div>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQS ACCORDION */}
-        <section className="space-y-8">
-          <div className="border-b border-white/10 pb-4">
-            <span className="font-mono text-xs text-teal tracking-wider uppercase">
-              05 // Common Questions
-            </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-              Frequently Asked Questions
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-2xl">
+              Modular Web3 primitives and developer tools.
             </h2>
+            <p className="text-gray-400 max-w-xl text-base font-light">
+              Built for performance, developer velocity, and rigorous on-chain cryptographic safety.
+            </p>
           </div>
 
-          <div className="space-y-4 max-w-4xl">
-            {faqs.map((faq, idx) => (
-              <div
-                key={faq.q}
-                className="rounded-2xl border border-white/10 bg-panel overflow-hidden transition"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((prod) => (
+              <Link
+                key={prod.id}
+                href={prod.href}
+                className={`group relative rounded-2xl border border-white/[0.1] bg-[#0E1017] p-6 transition-all duration-300 ${prod.glow} flex flex-col justify-between overflow-hidden`}
               >
-                <button
-                  onClick={() => setFaqOpen(faqOpen === idx ? null : idx)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-display font-bold text-white text-base hover:text-teal transition"
-                >
-                  <span>{faq.q}</span>
-                  <span className="font-mono text-teal text-lg">
-                    {faqOpen === idx ? '−' : '+'}
-                  </span>
-                </button>
-                {faqOpen === idx && (
-                  <div className="px-5 pb-5 text-sm text-gray-400 leading-relaxed border-t border-white/5 pt-3">
-                    {faq.a}
+                <div className="space-y-4">
+                  {/* Matching 16:9 Architecture Visual */}
+                  <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-white/10 bg-black/40">
+                    <Image
+                      src={prod.imageSrc}
+                      alt={prod.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0E1017] via-transparent to-transparent opacity-80" />
+                    <div className="absolute top-2.5 left-2.5">
+                      <span className="font-mono text-[10px] text-gray-300 bg-void/80 backdrop-blur-md px-2 py-0.5 rounded border border-white/10">
+                        /{prod.id}
+                      </span>
+                    </div>
+                    <div className="absolute top-2.5 right-2.5">
+                      <span
+                        className={`text-[9px] font-mono px-2 py-0.5 rounded-full border backdrop-blur-md ${prod.statusClass}`}
+                      >
+                        {prod.status}
+                      </span>
+                    </div>
                   </div>
-                )}
-              </div>
+
+                  <h3 className="font-display text-2xl font-bold text-white group-hover:text-teal transition">
+                    {prod.name}
+                  </h3>
+
+                  <p className="text-xs font-mono text-teal/80">{prod.contract}</p>
+
+                  <p className="text-sm text-gray-400 leading-relaxed font-light">
+                    {prod.tagline}
+                  </p>
+                </div>
+
+                <div className="pt-4 mt-6 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono text-gray-400 group-hover:text-white transition">
+                  <span>Explore architecture</span>
+                  <span className="transition-transform group-hover:translate-x-1">→</span>
+                </div>
+              </Link>
             ))}
+          </div>
+        </section>
+
+        {/* ========================================================
+            7. TELEMETRY LAB TEASER (Simulated Demo Notice)
+           ======================================================== */}
+        <section className="relative px-6 md:px-12 lg:px-16 max-w-7xl mx-auto py-16">
+          <div className="rounded-2xl md:rounded-3xl border border-white/[0.12] bg-[#0D0F16] p-8 md:p-12 relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8 space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs tracking-widest uppercase text-teal">
+                    /Telemetry Lab
+                  </span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber/10 border border-amber/30 text-amber font-semibold">
+                    [Simulated Demo]
+                  </span>
+                </div>
+
+                <h3 className="font-display text-2xl sm:text-3xl font-bold text-white">
+                  Real-time chain telemetry, particle topology &amp; estimator.
+                </h3>
+
+                <p className="text-sm text-gray-400 font-light max-w-2xl leading-relaxed">
+                  To keep our flagship homepage calm and editorial, all simulated telemetry (GPU
+                  canvas particle networks, 60fps protocol terminal streams, and interactive project
+                  cost calculators) are hosted in our sandboxed laboratory.
+                </p>
+              </div>
+
+              <div className="lg:col-span-4 flex lg:justify-end">
+                <Link
+                  href="/lab"
+                  className="rounded-full bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-void hover:bg-teal transition shadow-[0_0_24px_rgba(0,245,212,0.3)]"
+                >
+                  Open Telemetry Lab →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================
+            8. CLOSING CTA & ARCHITECTURAL FOOTER WORDMARK
+           ======================================================== */}
+        <section className="relative px-6 md:px-12 lg:px-16 max-w-7xl mx-auto py-24 md:py-36 border-t border-white/[0.06]">
+          <div className="space-y-6 max-w-3xl">
+            <div className="font-mono text-xs tracking-[0.16em] uppercase text-teal">
+              /Start a conversation
+            </div>
+
+            <h2 className="font-display text-4xl sm:text-6xl font-extrabold tracking-tight text-white">
+              Have a project in mind?
+            </h2>
+
+            <p className="text-lg text-gray-400 font-light leading-relaxed">
+              We take on 2 selective client engagements per sprint. Direct milestone escrow, Safe
+              multisig ownership handover, and zero boilerplate.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4 pt-4">
+              <MagneticButton
+                onClick={() => setIntakeOpen(true)}
+                className="rounded-full bg-teal px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-void hover:bg-teal/90 shadow-[0_0_30px_rgba(0,245,212,0.4)]"
+              >
+                Start your project
+              </MagneticButton>
+
+              <CopyButton
+                textToCopy="contact@rarewarestudio.space"
+                defaultLabel="Copy contact email"
+                copiedLabel="Email copied to clipboard ✓"
+                className="rounded-full border border-white/20 px-6 py-3.5 hover:bg-white/5 text-gray-300"
+              />
+            </div>
+          </div>
+
+          {/* Navigation Links Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 pt-20 pb-16 border-t border-white/[0.08] mt-20 font-mono text-xs">
+            <div className="space-y-3">
+              <div className="text-white font-bold uppercase text-[11px] tracking-wider">
+                /Products
+              </div>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/raremint" className="hover:text-teal transition">RareMint (NFT Kit)</Link></li>
+                <li><Link href="/raretoken" className="hover:text-amber transition">RareToken &amp; Vesting</Link></li>
+                <li><Link href="/rarechars" className="hover:text-violet transition">RareChars (AI NPCs)</Link></li>
+                <li><Link href="/rarepay" className="hover:text-blue transition">RarePay (Checkout)</Link></li>
+                <li><Link href="/rareagent" className="hover:text-orange transition">RareAgent (ERC-4337)</Link></li>
+                <li><Link href="/raredash" className="hover:text-lime transition">RareDash (Indexer)</Link></li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <div className="text-white font-bold uppercase text-[11px] tracking-wider">
+                /Case Studies
+              </div>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/case-studies/metacade" className="text-teal font-semibold hover:underline">Metacade Showcase →</Link></li>
+                <li><Link href="#builds" className="hover:text-white transition">RareMint Internal Build</Link></li>
+                <li><Link href="#builds" className="hover:text-white transition">RareChars Internal Build</Link></li>
+                <li><Link href="#builds" className="hover:text-white transition">RarePay Internal Build</Link></li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <div className="text-white font-bold uppercase text-[11px] tracking-wider">
+                /Security &amp; Code
+              </div>
+              <ul className="space-y-2 text-gray-400">
+                <li><span>Solidity 0.8.28</span></li>
+                <li><span>Foundry 1k Fuzz Runs</span></li>
+                <li><span>Stateful Invariants</span></li>
+                <li><span>Safe Multisig + Timelock</span></li>
+                <li><span>Zero-Key AI Safety</span></li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <div className="text-white font-bold uppercase text-[11px] tracking-wider">
+                /Direct Intake
+              </div>
+              <ul className="space-y-2 text-gray-400">
+                <li><span>Telegram: @rareware_space</span></li>
+                <li><span>Email: contact@rarewarestudio.space</span></li>
+                <li><span>Deployments: BSC 56 &amp; opBNB 204</span></li>
+                <li><Link href="/lab" className="text-amber hover:underline">[Simulated Lab]</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Giant Architectural Wordmark */}
+          <div className="w-full border-t border-white/[0.06] pt-12 select-none overflow-hidden text-center">
+            <span className="font-display font-extrabold text-[12vw] tracking-[-0.05em] text-white/[0.04] leading-none block uppercase">
+              RAREWARE STUDIO
+            </span>
+          </div>
+
+          {/* Legal & Non-Custodial Notice */}
+          <div className="border-t border-white/[0.06] pt-8 space-y-4 text-xs font-sans text-gray-500 leading-relaxed">
+            <p>
+              <strong className="text-gray-400">NON-CUSTODIAL SOFTWARE NOTICE:</strong> Rareware Studio
+              operates exclusively as an independent software development laboratory, UI/UX engineering,
+              and technology consulting firm. Rareware does not operate an exchange, take custody of
+              user funds, or provide financial advice. All smart contracts, cryptographic keys, and
+              treasury multisigs remain in the sole ownership and control of clients and their Gnosis
+              Safe configurations.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-gray-400 pt-2 border-t border-white/[0.04]">
+              <div>© {new Date().getFullYear()} RAREWARE STUDIO. ALL RIGHTS RESERVED.</div>
+              <div>OPTIMIZED FOR POST-FERMI BSC 450ms BLOCK TIME &amp; opBNB SUB-SECOND EVM</div>
+            </div>
           </div>
         </section>
       </main>
 
-      <Footer />
-
-      <IntakeWizardModal
-        isOpen={intakeOpen}
-        onClose={() => setIntakeOpen(false)}
-      />
+      {/* Intake Wizard Modal */}
+      <IntakeWizardModal isOpen={intakeOpen} onClose={() => setIntakeOpen(false)} />
     </div>
   );
 }
