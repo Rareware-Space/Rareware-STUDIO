@@ -2,10 +2,11 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Wonderland x Avark Design System: Syne + Space Grotesk (Display), Manrope (Body/UI), JetBrains Mono (Technical/Telemetry) */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap');
+/* Fonts: Plus Jakarta Sans, Inter, JetBrains Mono, Syne, Space Grotesk, Manrope */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap');
 
 :root {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --color-void: #050608;
   --color-obsidian: #090B10;
   --color-panel: #0E121A;
