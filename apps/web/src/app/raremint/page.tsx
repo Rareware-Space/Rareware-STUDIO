@@ -1339,7 +1339,7 @@ export default function RareMintPage() {
                   <Image
                     src={
                       unboxed
-                        ? "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
+                        ? "/media/mythic-monolith-3d.jpg"
                         : "/media/raremint-vault-3d.jpg"
                     }
                     alt="NFT Monolith Card"
