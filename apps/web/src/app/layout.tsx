@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     'Web3 Studio',
     'AI Game Characters',
   ],
+  verification: {
+    google: 'google34ed6b3e25d2b5c0',
+  },
 };
 
 export default function RootLayout({
