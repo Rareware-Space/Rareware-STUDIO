@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Navbar,
   Footer,
@@ -126,36 +127,57 @@ export default function RareMintPage() {
         <section className="relative rounded-3xl border border-teal/30 bg-gradient-to-b from-panel via-obsidian to-void p-8 sm:p-14 overflow-hidden">
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal/10 border border-teal/30 text-teal font-mono text-xs">
-              <span className="h-2 w-2 rounded-full bg-teal animate-pulse" />
-              <span>RAREMINT // OPEN-SOURCE NFT KIT</span>
-              <span>•</span>
-              <span className="text-gray-300">ERC-721 + EIP-2981</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal/10 border border-teal/30 text-teal font-mono text-xs">
+                <span className="h-2 w-2 rounded-full bg-teal animate-pulse" />
+                <span>RAREMINT // OPEN-SOURCE NFT KIT</span>
+                <span>•</span>
+                <span className="text-gray-300">ERC-721 + EIP-2981</span>
+              </div>
+
+              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
+                ZERO-GAS-WAR NFT LAUNCHES WITH{' '}
+                <span className="text-teal">CINEMA-GRADE REVEAL MOTION</span>
+              </h1>
+
+              <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
+                An open-source, production-grade NFT collection and mint site engine built for BSC and opBNB. Features gas-optimized Merkle allowlists, delayed commit-reveal fairness, and pull-over-push Safe royalty splits.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <a
+                  href="#sandbox"
+                  className="px-6 py-3.5 rounded-xl bg-teal text-void font-display font-bold text-sm hover:opacity-90 transition glow-teal shadow-lg shadow-teal/20"
+                >
+                  Test Interactive Mint Sandbox ↓
+                </a>
+                <button
+                  onClick={() => setIntakeOpen(true)}
+                  className="px-6 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-display font-medium text-sm hover:border-teal/50 transition"
+                >
+                  Hire Us to Build Your Drop
+                </button>
+              </div>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
-              ZERO-GAS-WAR NFT LAUNCHES WITH{' '}
-              <span className="text-teal">CINEMA-GRADE REVEAL MOTION</span>
-            </h1>
-
-            <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
-              An open-source, production-grade NFT collection and mint site engine built for BSC and opBNB. Features gas-optimized Merkle allowlists, delayed commit-reveal fairness, and pull-over-push Safe royalty splits.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <a
-                href="#sandbox"
-                className="px-6 py-3.5 rounded-xl bg-teal text-void font-display font-bold text-sm hover:opacity-90 transition glow-teal shadow-lg shadow-teal/20"
-              >
-                Test Interactive Mint Sandbox ↓
-              </a>
-              <button
-                onClick={() => setIntakeOpen(true)}
-                className="px-6 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-display font-medium text-sm hover:border-teal/50 transition"
-              >
-                Hire Us to Build Your Drop
-              </button>
+            {/* 3D Commit-Reveal Vault Visual */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative aspect-[16/9] lg:aspect-[4/3] w-full rounded-2xl overflow-hidden border border-teal/30 shadow-2xl shadow-teal/10">
+                <Image
+                  src="/media/raremint-vault-3d.jpg"
+                  alt="RareMint 3D Cryptographic Commit-Reveal Vault"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-gray-300 bg-void/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                  <span className="text-teal font-semibold">RareMint • Reveal Relic</span>
+                  <span className="text-gray-400">ERC-721A + Merkle Tree</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>

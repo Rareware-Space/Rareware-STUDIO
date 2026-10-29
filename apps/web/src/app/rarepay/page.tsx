@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Navbar,
   Footer,
@@ -128,36 +129,57 @@ export default function RarePayPage() {
         <section className="relative rounded-3xl border border-blue/30 bg-gradient-to-b from-panel via-obsidian to-void p-8 sm:p-14 overflow-hidden">
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue/15 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue/10 border border-blue/30 text-blue font-mono text-xs">
-              <span className="h-2 w-2 rounded-full bg-blue animate-pulse" />
-              <span>RAREPAY // NON-CUSTODIAL CHECKOUT</span>
-              <span>•</span>
-              <span className="text-gray-300">18-DECIMAL SAFE BSC/opBNB</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue/10 border border-blue/30 text-blue font-mono text-xs">
+                <span className="h-2 w-2 rounded-full bg-blue animate-pulse" />
+                <span>RAREPAY // NON-CUSTODIAL CHECKOUT</span>
+                <span>•</span>
+                <span className="text-gray-300">18-DECIMAL SAFE BSC/opBNB</span>
+              </div>
+
+              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
+                NON-CUSTODIAL BSC &amp; opBNB CHECKOUT WITH{' '}
+                <span className="text-blue">18-DECIMAL PRECISION</span>
+              </h1>
+
+              <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
+                Accept crypto payments (USDT, USDC, BNB) on BSC and opBNB directly into your Gnosis Safe treasury. Zero custody, dynamic 18-decimal token normalization, and sub-second HMAC-SHA256 signed webhooks.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <a
+                  href="#checkout-sandbox"
+                  className="px-6 py-3.5 rounded-xl bg-blue text-white font-display font-bold text-sm hover:opacity-90 transition glow-blue shadow-lg shadow-blue/20"
+                >
+                  Test Live Invoice Checkout Modal ↓
+                </a>
+                <button
+                  onClick={() => setIntakeOpen(true)}
+                  className="px-6 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-display font-medium text-sm hover:border-blue/50 transition"
+                >
+                  Setup RarePay for Your Project
+                </button>
+              </div>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
-              NON-CUSTODIAL BSC &amp; opBNB CHECKOUT WITH{' '}
-              <span className="text-blue">18-DECIMAL PRECISION</span>
-            </h1>
-
-            <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
-              Accept crypto payments (USDT, USDC, BNB) on BSC and opBNB directly into your Gnosis Safe treasury. Zero custody, dynamic 18-decimal token normalization, and sub-second HMAC-SHA256 signed webhooks.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <a
-                href="#checkout-sandbox"
-                className="px-6 py-3.5 rounded-xl bg-blue text-white font-display font-bold text-sm hover:opacity-90 transition glow-blue shadow-lg shadow-blue/20"
-              >
-                Test Live Invoice Checkout Modal ↓
-              </a>
-              <button
-                onClick={() => setIntakeOpen(true)}
-                className="px-6 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-display font-medium text-sm hover:border-blue/50 transition"
-              >
-                Setup RarePay for Your Project
-              </button>
+            {/* 3D Liquid-Glass Payment Terminal Visual */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative aspect-[16/9] lg:aspect-[4/3] w-full rounded-2xl overflow-hidden border border-blue/30 shadow-2xl shadow-blue/10">
+                <Image
+                  src="/media/rarepay-terminal-3d.jpg"
+                  alt="RarePay 3D Liquid-Glass Contactless Payment Terminal"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-gray-300 bg-void/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                  <span className="text-blue font-semibold">RarePay • POS Terminal</span>
+                  <span className="text-gray-400">18-Dec USDT / USDC / BNB</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>

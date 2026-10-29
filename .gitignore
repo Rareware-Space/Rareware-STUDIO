@@ -18,12 +18,18 @@ build/
 # Secrets & Keys (NEVER COMMIT)
 .env
 .env.*
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 !.env.example
 *.pem
 *.key
 *.keystore
 **/keystore/**
 mnemonic.txt
+*.credentials
 
 # Internal agent workspaces
 .agents/

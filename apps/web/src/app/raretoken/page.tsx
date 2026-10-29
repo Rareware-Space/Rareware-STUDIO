@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Navbar,
   Footer,
@@ -129,36 +130,57 @@ export default function RareTokenPage() {
         <section className="relative rounded-3xl border border-amber/30 bg-gradient-to-b from-panel via-obsidian to-void p-8 sm:p-14 overflow-hidden">
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-amber/15 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber/10 border border-amber/30 text-amber font-mono text-xs">
-              <span className="h-2 w-2 rounded-full bg-amber animate-pulse" />
-              <span>RARETOKEN // TIMESTAMP-INVARIANT TOKEN KIT</span>
-              <span>•</span>
-              <span className="text-gray-300">FIXED SUPPLY ERC-20</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber/10 border border-amber/30 text-amber font-mono text-xs">
+                <span className="h-2 w-2 rounded-full bg-amber animate-pulse" />
+                <span>RARETOKEN // TIMESTAMP-INVARIANT TOKEN KIT</span>
+                <span>•</span>
+                <span className="text-gray-300">FIXED SUPPLY ERC-20</span>
+              </div>
+
+              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
+                POST-FERMI 450ms-SAFE{' '}
+                <span className="text-amber">TOKEN LAUNCHES, VESTING &amp; STAKING</span>
+              </h1>
+
+              <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
+                Immune to BSC block-time drift. Fixed supply minted once to your Gnosis Safe treasury, timestamp-invariant linear vesting curves, and Synthetix-style staking reward contracts with 256-run invariant proofs.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <a
+                  href="#simulators"
+                  className="px-6 py-3.5 rounded-xl bg-amber text-void font-display font-bold text-sm hover:opacity-90 transition glow-amber shadow-lg shadow-amber/20"
+                >
+                  Test Vesting &amp; Staking Simulators ↓
+                </a>
+                <button
+                  onClick={() => setIntakeOpen(true)}
+                  className="px-6 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-display font-medium text-sm hover:border-amber/50 transition"
+                >
+                  Launch Your Token with Rareware
+                </button>
+              </div>
             </div>
 
-            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
-              POST-MAXWELL 450ms-SAFE{' '}
-              <span className="text-amber">TOKEN LAUNCHES, VESTING &amp; STAKING</span>
-            </h1>
-
-            <p className="text-gray-400 text-base sm:text-lg lg:text-xl font-light leading-relaxed max-w-3xl">
-              Immune to BSC block-time drift. Fixed supply minted once to your Gnosis Safe treasury, timestamp-invariant linear vesting curves, and Synthetix-style staking reward contracts with 256-run invariant proofs.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <a
-                href="#simulators"
-                className="px-6 py-3.5 rounded-xl bg-amber text-void font-display font-bold text-sm hover:opacity-90 transition glow-amber shadow-lg shadow-amber/20"
-              >
-                Test Vesting &amp; Staking Simulators ↓
-              </a>
-              <button
-                onClick={() => setIntakeOpen(true)}
-                className="px-6 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white font-display font-medium text-sm hover:border-amber/50 transition"
-              >
-                Launch Your Token with Rareware
-              </button>
+            {/* 3D Treasury Timelock Vault Visual */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative aspect-[16/9] lg:aspect-[4/3] w-full rounded-2xl overflow-hidden border border-amber/30 shadow-2xl shadow-amber/10">
+                <Image
+                  src="/media/raretoken-treasury-3d.jpg"
+                  alt="RareToken ERC-20 Treasury & Vesting Timelock Vault"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-gray-300 bg-void/70 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                  <span className="text-amber font-semibold">RareToken • Timelock Chronometer</span>
+                  <span className="text-gray-400">Fixed Supply + Synthetix APY</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>

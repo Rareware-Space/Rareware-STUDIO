@@ -32,6 +32,10 @@ export default function StudioHomePage() {
       href: '/raremint',
       accent: 'teal',
       bgGradient: 'from-teal/10 via-obsidian to-void',
+      hasImage: true,
+      imageSrc: '/media/raremint-vault-3d.jpg',
+      imageCaption: 'RareMint • Commit-Reveal Vault',
+      imageBadge: 'ERC-721A Batch',
     },
     {
       num: '/02',
@@ -60,6 +64,10 @@ export default function StudioHomePage() {
       href: '/rarepay',
       accent: 'blue',
       bgGradient: 'from-blue/10 via-obsidian to-void',
+      hasImage: true,
+      imageSrc: '/media/rarepay-terminal-3d.jpg',
+      imageCaption: 'RarePay • Liquid-Glass POS Terminal',
+      imageBadge: '18-Dec USDT/USDC/BNB',
     },
     {
       num: '/04',
@@ -132,6 +140,7 @@ export default function StudioHomePage() {
       contract: 'RareMint.sol',
       href: '/raremint',
       glow: 'hover:shadow-[0_0_35px_rgba(0,245,212,0.15)] hover:border-teal/50',
+      imageSrc: '/media/raremint-vault-3d.jpg',
     },
     {
       id: '02',
@@ -142,6 +151,7 @@ export default function StudioHomePage() {
       contract: 'RareToken.sol + Vesting',
       href: '/raretoken',
       glow: 'hover:shadow-[0_0_35px_rgba(245,158,11,0.15)] hover:border-amber/50',
+      imageSrc: '/media/raretoken-treasury-3d.jpg',
     },
     {
       id: '03',
@@ -152,6 +162,7 @@ export default function StudioHomePage() {
       contract: 'RareCharsVerifier.sol',
       href: '/rarechars',
       glow: 'hover:shadow-[0_0_35px_rgba(139,92,246,0.15)] hover:border-violet/50',
+      imageSrc: '/media/character-npc-cipher-3d.jpg',
     },
     {
       id: '04',
@@ -162,6 +173,7 @@ export default function StudioHomePage() {
       contract: 'RarePayRouter.sol',
       href: '/rarepay',
       glow: 'hover:shadow-[0_0_35px_rgba(59,130,246,0.15)] hover:border-blue/50',
+      imageSrc: '/media/rarepay-terminal-3d.jpg',
     },
     {
       id: '05',
@@ -172,6 +184,7 @@ export default function StudioHomePage() {
       contract: 'Session Key Module',
       href: '/rareagent',
       glow: 'hover:shadow-[0_0_35px_rgba(249,115,22,0.15)] hover:border-orange/50',
+      imageSrc: '/media/rareagent-enclave-3d.jpg',
     },
     {
       id: '06',
@@ -182,6 +195,7 @@ export default function StudioHomePage() {
       contract: 'Ponder v0.7 Indexer',
       href: '/raredash',
       glow: 'hover:shadow-[0_0_35px_rgba(34,211,238,0.15)] hover:border-lime/50',
+      imageSrc: '/media/raredash-indexer-3d.jpg',
     },
   ];
 
@@ -672,16 +686,31 @@ export default function StudioHomePage() {
               <Link
                 key={prod.id}
                 href={prod.href}
-                className={`group relative rounded-2xl border border-white/[0.1] bg-[#0E1017] p-8 transition-all duration-300 ${prod.glow} flex flex-col justify-between`}
+                className={`group relative rounded-2xl border border-white/[0.1] bg-[#0E1017] p-6 transition-all duration-300 ${prod.glow} flex flex-col justify-between overflow-hidden`}
               >
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs text-gray-500">/{prod.id}</span>
-                    <span
-                      className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full border ${prod.statusClass}`}
-                    >
-                      {prod.status}
-                    </span>
+                  {/* Matching 16:9 Architecture Visual */}
+                  <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden border border-white/10 bg-black/40">
+                    <Image
+                      src={prod.imageSrc}
+                      alt={prod.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0E1017] via-transparent to-transparent opacity-80" />
+                    <div className="absolute top-2.5 left-2.5">
+                      <span className="font-mono text-[10px] text-gray-300 bg-void/80 backdrop-blur-md px-2 py-0.5 rounded border border-white/10">
+                        /{prod.id}
+                      </span>
+                    </div>
+                    <div className="absolute top-2.5 right-2.5">
+                      <span
+                        className={`text-[9px] font-mono px-2 py-0.5 rounded-full border backdrop-blur-md ${prod.statusClass}`}
+                      >
+                        {prod.status}
+                      </span>
+                    </div>
                   </div>
 
                   <h3 className="font-display text-2xl font-bold text-white group-hover:text-teal transition">
@@ -695,7 +724,7 @@ export default function StudioHomePage() {
                   </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono text-gray-400 group-hover:text-white transition">
+                <div className="pt-4 mt-6 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono text-gray-400 group-hover:text-white transition">
                   <span>Explore architecture</span>
                   <span className="transition-transform group-hover:translate-x-1">→</span>
                 </div>

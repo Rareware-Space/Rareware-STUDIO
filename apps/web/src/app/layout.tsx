@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Spotlight } from '@rareware/ui';
+import { ReBoAssistant } from '@/components/ReBoAssistant';
 
 export const metadata: Metadata = {
   title: 'Rareware Studio — Cyber-Monumental Edition (BSC 56 / opBNB 204)',
@@ -39,6 +40,7 @@ export default function RootLayout({
       <body className="grid-bg min-h-screen bg-void text-gray-100 font-sans selection:bg-teal selection:text-void antialiased">
         <Spotlight color="rgba(0, 245, 212, 0.07)" size={600} />
         {children}
+        <ReBoAssistant />
       </body>
     </html>
   );

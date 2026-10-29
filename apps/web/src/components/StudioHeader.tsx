@@ -30,7 +30,7 @@ const PRODUCTS_DATA: ProductItem[] = [
     statusVariant: 'teal',
     contract: 'RareMint.sol (ERC-721A)',
     href: '/raremint',
-    image: '/media/hero-monolith-3d.jpg',
+    image: '/media/raremint-vault-3d.jpg',
   },
   {
     id: 'raretoken',
@@ -40,7 +40,7 @@ const PRODUCTS_DATA: ProductItem[] = [
     statusVariant: 'amber',
     contract: 'RareToken.sol + Vesting',
     href: '/raretoken',
-    image: '/media/metacade-token-3d.jpg',
+    image: '/media/raretoken-treasury-3d.jpg',
   },
   {
     id: 'rarechars',
@@ -50,7 +50,7 @@ const PRODUCTS_DATA: ProductItem[] = [
     statusVariant: 'violet',
     contract: 'RareCharsVerifier.sol (opBNB)',
     href: '/rarechars',
-    image: '/media/ai-agent-neural-core.jpg',
+    image: '/media/character-npc-cipher-3d.jpg',
   },
   {
     id: 'rarepay',
@@ -60,7 +60,7 @@ const PRODUCTS_DATA: ProductItem[] = [
     statusVariant: 'blue',
     contract: 'RarePayRouter.sol (BSC/opBNB)',
     href: '/rarepay',
-    image: '/media/metacade-token-3d.jpg',
+    image: '/media/rarepay-terminal-3d.jpg',
   },
   {
     id: 'rareagent',
@@ -70,7 +70,7 @@ const PRODUCTS_DATA: ProductItem[] = [
     statusVariant: 'orange',
     contract: 'ERC-4337 Session Key Module',
     href: '/rareagent',
-    image: '/media/ai-agent-neural-core.jpg',
+    image: '/media/rareagent-enclave-3d.jpg',
   },
   {
     id: 'raredash',
@@ -80,7 +80,7 @@ const PRODUCTS_DATA: ProductItem[] = [
     statusVariant: 'lime',
     contract: 'Ponder v0.7 Indexer',
     href: '/raredash',
-    image: '/media/metacadia-city-aerial.jpg',
+    image: '/media/raredash-indexer-3d.jpg',
   },
 ];
 
